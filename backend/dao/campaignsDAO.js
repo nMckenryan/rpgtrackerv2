@@ -65,6 +65,7 @@ export default class CampaignsDAO {
   // GET BY ID
   static async getCampaignByID(id) {
     try {
+      // Pipeline to match collections w/ relationships together (like GraphQL)
       const pipeline = [
         {
           $match: {
@@ -72,8 +73,9 @@ export default class CampaignsDAO {
           },
         },
         {
+          // Finding Sessions to attach to Campaigns
           $lookup: {
-            from: "reviews",
+            from: "sessions",
             let: {
               id: "$_id",
             },
@@ -81,7 +83,7 @@ export default class CampaignsDAO {
               {
                 $match: {
                   $expr: {
-                    $eq: ["$restaurant_id", "$$id"],
+                    $eq: ["$campaign_id", "$$id"],
                   },
                 },
               },
@@ -91,12 +93,12 @@ export default class CampaignsDAO {
                 },
               },
             ],
-            as: "reviews",
+            as: "sessions",
           },
         },
         {
           $addFields: {
-            reviews: "$reviews",
+            sessions: "$sessions",
           },
         },
       ];
@@ -111,7 +113,7 @@ export default class CampaignsDAO {
   static async getCuisines() {
     let cuisines = [];
     try {
-      cuisines = await campaigns.distinct("cuisine");
+      cuisines = await campaigns.distinct("cuisine"); //returns 'set' of cuisines
       return cuisines;
     } catch (e) {
       console.error(`Unable to get cuisines, ${e}`);

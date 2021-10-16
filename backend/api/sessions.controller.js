@@ -1,10 +1,10 @@
 import SessionsDAO from "../dao/sessionsDAO.js";
 
 export default class SessionsController {
-  // POST/ADD SESSION
+  // CREATE SESSION
   static async apiPostSession(req, res, next) {
     try {
-      const restaurantId = req.body.restaurant_id;
+      const campaignId = req.body.campaign_id;
       const session = req.body.text;
       const userInfo = {
         name: req.body.name,
@@ -12,8 +12,8 @@ export default class SessionsController {
       };
       const date = new Date();
 
-      const sessionResponse = await SessionsDAO.addSession(
-        restaurantId,
+      const SessionResponse = await SessionsDAO.addSession(
+        campaignId,
         userInfo,
         session,
         date

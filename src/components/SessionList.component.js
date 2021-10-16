@@ -1,81 +1,174 @@
-import React, { Component } from 'react'
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
-import '../custom.scss';
-import Swal from 'sweetalert2'
+import React, { useState, useEffect } from "react";
+import CampaignDataService from "../services/campaign";
+import { Link } from "react-router-dom";
 
-//SESSION FUNC COMPONENT FOR DISPLAYING INDIVIDUAL FIELDS 
-const Session = props => (
-    <tr>
-      <td>{props.session.campaign}</td>
-      <td>{props.session.date.substring(0,10)}</td>
-      <td>{props.session.character}</td>
-      <td>{props.session.sesLog}</td>
-      <td>
-        <Link to={"/edit/"+props.session._id}><button>Edit</button></Link> <button href="#" onClick={() => { props.deleteSession(props.session._id) }}>Delete</button>
-      </td>
-    </tr>
-  )
+const SessionList = (props) => {
+  const [campaigns, setCampaigns] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const [searchZip, setSearchZip] = useState("");
+  const [searchCuisine, setSearchCuisine] = useState("");
+  const [cuisines, setCuisines] = useState(["All Cuisines"]);
 
-export default class SessionList extends Component {
-    constructor(props){
-        super(props);
-        this.deleteSession = this.deleteSession.bind(this);
-        this.state = { sessions: [] }
-    }
+  useEffect(() => {
+    retrieveCampaigns();
+    retrieveCuisines();
+  }, []);
 
-    componentDidMount() { //adds list of exercises to state before page gen
-        axios.get('http:/localhost:5000/sessions/')
-        .then(response => { 
-            this.setState({ sessions: response.data }); //gets all fields in sessions
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+  const onChangeSearchName = (e) => {
+    const searchName = e.target.value;
+    setSearchName(searchName);
+  };
 
-    //DELETE SESSION
-    deleteSession(id) {
-      Swal.fire({
-        title: 'Are you sure your want to delete this session?',
-        showCancelButton: true,
-        confirmButtonText: `Delete`,
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          axios.delete('https://dungeonrpgtracker.herokuapp.com/sessions/' + id)
-          .then(res => console.log(res.data))
-        //updates page state upon deletion.
-        this.setState({ 
-            sessions: this.state.sessions.filter(el => el._id !== id)
-        })
-        } 
+  const onChangeSearchZip = (e) => {
+    const searchZip = e.target.value;
+    setSearchZip(searchZip);
+  };
+
+  const onChangeSearchCuisine = (e) => {
+    const searchCuisine = e.target.value;
+    setSearchCuisine(searchCuisine);
+  };
+
+  const retrieveCampaigns = () => {
+    CampaignDataService.getAll()
+      .then((response) => {
+        console.log(response.data);
+        setCampaigns(response.data.campaigns);
       })
-    }
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    sessionList() {
-        return this.state.sessions.map(currentsession => {
-            return <Session session={currentsession} deleteSession={this.deleteSession}key={currentsession._id}/>;
-        })
-    }
+  const retrieveCuisines = () => {
+    CampaignDataService.getCuisines()
+      .then((response) => {
+        console.log(response.data);
+        setCuisines(["All Cuisines"].concat(response.data));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    render() {
-        return (
-            <Table>
-              <thead>
-                <tr>
-                  <th>Campaign</th>
-                  <th>Date</th>
-                  <th>Character</th>
-                  <th>Session Log</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                { this.sessionList() }
-              </tbody>
-            </Table>
-        )
-      }
+  const refreshList = () => {
+    retrieveCampaigns();
+  };
+
+  const find = (query, by) => {
+    CampaignDataService.find(query, by)
+      .then((response) => {
+        console.log(response.data);
+        setCampaigns(response.data.campaigns);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const findByName = () => {
+    find(searchName, "name");
+  };
+
+  const findByZip = () => {
+    find(searchZip, "zipcode");
+  };
+
+  const findByCuisine = () => {
+    if (searchCuisine === "All Cuisines") {
+      refreshList();
+    } else {
+      find(searchCuisine, "cuisine");
     }
+  };
+
+  return (
+    <div>
+      <div className="row pb-1">
+        <div className="input-group col-lg-4">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by name"
+            value={searchName}
+            onChange={onChangeSearchName}
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={findByName}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+        <div className="input-group col-lg-4">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search by zip"
+            value={searchZip}
+            onChange={onChangeSearchZip}
+          />
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={findByZip}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+        <div className="input-group col-lg-4">
+          <select onChange={onChangeSearchCuisine}>
+            {cuisines.map((cuisine) => {
+              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
+            })}
+          </select>
+          <div className="input-group-append">
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              onClick={findByCuisine}
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        {campaigns.map((camp) => {
+          const address = `${camp.address.building} ${camp.address.street}, ${camp.address.zipcode}`;
+          return (
+            <div className="col-lg-4 pb-1">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{camp.name}</h5>
+                  <p className="card-text">
+                    <strong>Cuisine: </strong>
+                    {camp.cuisine}
+                    <br />
+                    <strong>Address: </strong>
+                    {address}
+                  </p>
+                  <div className="row">
+                    <Link
+                      to={"/campaigns/" + camp._id}
+                      className="btn btn-primary col-lg-5 mx-1 mb-1"
+                    >
+                      View Sessions
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default SessionList;

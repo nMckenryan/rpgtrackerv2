@@ -36,7 +36,7 @@ export default class CampaignsController {
     res.json(response);
   }
 
-  // GET CAMPAIGN BY ID
+  // GET CAMPAIGN BY ID (via param, after / in URL)
   static async apiGetCampaignById(req, res, next) {
     try {
       let id = req.params.id || {};
@@ -52,7 +52,7 @@ export default class CampaignsController {
     }
   }
 
-  // GET CUSINE
+  // GET CUISINE
   static async apiGetCampaignCuisines(req, res, next) {
     try {
       let cuisines = await CampaignsDAO.getCuisines();

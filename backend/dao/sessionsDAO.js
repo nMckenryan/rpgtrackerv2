@@ -4,7 +4,7 @@ const ObjectId = mongodb.ObjectID;
 let sessions;
 
 export default class SessionsDAO {
-  // CREATE/FIND DB
+  // CONNECT TO DB
   static async injectDB(conn) {
     if (sessions) {
       return;
@@ -19,19 +19,19 @@ export default class SessionsDAO {
   }
 
   // ADD
-  static async addSession(campaignID, character, sesLog, date) {
+  static async addSession(restaurantId, user, review, date) {
     try {
-      const sessionDoc = {
-        name: character.name,
-        user_id: character._id,
+      const reviewDoc = {
+        name: user.name,
+        user_id: user._id,
         date: date,
-        text: sesLog,
-        campaign_ID: ObjectId(campaignID),
+        text: review,
+        restaurant_id: ObjectId(restaurantId),
       };
 
-      return await sessions.insertOne(sessionDoc);
+      return await sessions.insertOne(reviewDoc);
     } catch (e) {
-      console.error(`Unable to post session: ${e}`);
+      console.error(`Unable to post review: ${e}`);
       return { error: e };
     }
   }
