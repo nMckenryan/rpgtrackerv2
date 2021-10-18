@@ -19,14 +19,14 @@ export default class SessionsDAO {
   }
 
   // ADD
-  static async addSession(restaurantId, user, review, date) {
+  static async addSession(campaignID, user, review, date) {
     try {
       const reviewDoc = {
         name: user.name,
         user_id: user._id,
         date: date,
         text: review,
-        restaurant_id: ObjectId(restaurantId),
+        campaign_id: ObjectId(campaignID),
       };
 
       return await sessions.insertOne(reviewDoc);
