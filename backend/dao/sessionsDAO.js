@@ -19,19 +19,19 @@ export default class SessionsDAO {
   }
 
   // ADD
-  static async addSession(campaignID, user, review, date) {
+  static async addSession(campaignID, user, session, date) {
     try {
-      const reviewDoc = {
+      const sessionDoc = {
         name: user.name,
         user_id: user._id,
         date: date,
-        text: review,
+        text: session,
         campaign_id: ObjectId(campaignID),
       };
 
-      return await sessions.insertOne(reviewDoc);
+      return await sessions.insertOne(sessionDoc);
     } catch (e) {
-      console.error(`Unable to post review: ${e}`);
+      console.error(`Unable to post session: ${e}`);
       return { error: e };
     }
   }

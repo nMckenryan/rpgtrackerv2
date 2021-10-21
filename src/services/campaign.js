@@ -4,27 +4,28 @@ import http from "../http-common";
 
 class CampaignDataService {
   getAll(page = 0) {
-    return http.get(`?page=${page}`);
+    // Prefixed with HOOK Name not COLLECTION Name
+    return http.get(`rpgtrackerhook?page=${page}`);
   }
 
   get(id) {
-    return http.get(`/id/${id}`);
+    return http.get(`restaurant?id=${id}`);
   }
 
   find(query, by = "name", page = 0) {
-    return http.get(`?${by}=${query}&page=${page}`);
+    return http.get(`rpgtrackerhook?${by}=${query}&page=${page}`);
   }
 
   createSession(data) {
-    return http.post("/session", data);
+    return http.post("/session-new", data);
   }
 
   updateSession(data) {
-    return http.put("/session", data);
+    return http.put("/session-edit", data);
   }
 
   deleteSession(id, userId) {
-    return http.delete(`/session?id=${id}`, {
+    return http.delete(`/session-delete?id=${id}`, {
       data: { user_id: userId },
       // Get user ID for authenticating permissions
     });
