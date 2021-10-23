@@ -26,6 +26,7 @@ export default class SessionsDAO {
         user_id: user._id,
         date: date,
         text: session,
+        level: user.lvl,
         campaign_id: ObjectId(campaignID),
       };
 
@@ -38,7 +39,6 @@ export default class SessionsDAO {
 
   // UPDATE
   // TODO: (only updates if updated by same user, implement Campaign instead of User?)
-  // TODO: FIND WHY THIS ISNT WORKING WHILE THE OTHERS ARE
   static async updateSession(sessionId, userId, text, date) {
     try {
       const updateResponse = await sessions.updateOne(

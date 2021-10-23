@@ -7,7 +7,7 @@ import { Route, Switch, Link } from "react-router-dom";
 import SessionList from "./components/SessionList.component";
 import CompileSession from "./components/CompileSession.component";
 import Login from "./components/Login.js";
-// import CreateCampaign from "./components/CreateCampaign.component";
+
 import Campaign from "./components/campaign.component";
 import TopBar from "./components/TopBar.component";
 

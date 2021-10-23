@@ -2,40 +2,50 @@ import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 
-// Add or Edit a Session
+// Add or Edit a Campaign
 
-const CompileSession = (props) => {
-  let initialSessionState = "";
+const CompileCampaign = (props) => {
+  let initialCampaignState = "";
 
-  //   Verify if Session is being Edited or Created.
+  //   Verify if Campaign is being Edited or Created.
   let editing = false;
 
   //   Enables Edit Mode
-  if (props.location.state && props.location.state.currentSession) {
+  if (props.location.state && props.location.state.currentCampaign) {
     editing = true;
-    initialSessionState = props.location.state.currentSession.text;
+    initialCampaignState = props.location.state.currentCampaign.text;
   }
 
-  const [session, setSession] = useState(initialSessionState);
+  // Dunno if i can set this all to the same value.
+  const [campname, setCampname] = useState(initialCampaignState);
+  const [gm, setGm] = useState(initialCampaignState);
+  const [act, setAct] = useState(initialCampaignState);
+  const [system, setSystem] = useState(initialCampaignState);
+
   const [submitted, setSubmitted] = useState(false);
 
   //   Change State on Type
   const handleInputChange = (event) => {
-    setSession(event.target.value);
+    setCampname(event.target.value);
+    setGm(event.target.value);
+    setAct(event.target.value);
+    setSystem(event.target.value);
   };
 
-  const saveSession = () => {
+  const saveCampaign = () => {
     var data = {
-      text: session,
-      name: props.user.name,
+      campaign_name: campname,
+      gamemaster: gm,
+      game_system: system,
+      active: act,
       user_id: props.user.id,
       campaign_id: props.match.params.id,
     };
 
     // EDITING
     if (editing) {
-      data.session_id = props.location.state.currentSession._id;
-      CampaignDataService.updateSession(data)
+      data.campaign_id = props.location.state.currentCampaign._id;
+      CampaignDataService.updateCampaign(data)
         .then((response) => {
           setSubmitted(true);
           console.log(response.data);
@@ -45,7 +55,7 @@ const CompileSession = (props) => {
         });
       // CREATING
     } else {
-      CampaignDataService.createSession(data)
+      CampaignDataService.createCampaign(data)
         .then((response) => {
           setSubmitted(true);
           console.log(response.data);
@@ -76,21 +86,34 @@ const CompileSession = (props) => {
           ) : (
             // COMPILE REVIEW
             <div>
+              {/* TODO: Reusable components?  */}
+
               <div className="form-group">
                 <label htmlFor="description">
-                  {editing ? "Edit" : "Create"} Session
+                  {editing ? "Edit" : "Create"} Campaign
                 </label>
+
                 <input
                   type="text"
                   className="form-control"
                   id="text"
                   required
-                  value={session}
+                  value={campaign}
+                  onChange={handleInputChange}
+                  name="text"
+                />
+
+                <input
+                  type="text"
+                  className="form-control"
+                  id="text"
+                  required
+                  value={campaign}
                   onChange={handleInputChange}
                   name="text"
                 />
               </div>
-              <button onClick={saveSession} className="btn btn-success">
+              <button onClick={saveCampaign} className="btn btn-success">
                 Submit
               </button>
             </div>
@@ -104,4 +127,4 @@ const CompileSession = (props) => {
   );
 };
 
-export default CompileSession;
+export default CompileCampaign;

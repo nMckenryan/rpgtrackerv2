@@ -11,7 +11,7 @@ export default class CampaignsDAO {
     try {
       campaigns = await conn
         .db(process.env.RESTREVIEWS_NS)
-        .collection("restaurants");
+        .collection("campaigns");
     } catch (e) {
       console.error(
         `Unable to establish a collection handle in campaignsDAO: ${e}`
@@ -29,9 +29,9 @@ export default class CampaignsDAO {
     if (filters) {
       if ("name" in filters) {
         query = { $text: { $search: filters["name"] } };
-      } else if ("cuisine" in filters) {
-        query = { cuisine: { $eq: filters["cuisine"] } };
-      } else if ("zipcode" in filters) {
+      } else if ("isRunning" in filters) {
+        query = { cuisine: { $eq: filters["isRunning"] } };
+      } else if ("dm" in filters) {
         query = { "address.zipcode": { $eq: filters["zipcode"] } };
       }
     }

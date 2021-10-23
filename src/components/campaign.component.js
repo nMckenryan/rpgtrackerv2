@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import CampaignDataService from "../services/campaign";
+import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
+
+// VIEW OF SINGULAR CAMPAIGN
 
 const Campaign = (props) => {
   const initialCampaignState = {
     id: null,
-    name: "",
-    address: {},
-    cuisine: "",
+    campaign_name: "",
+    gm: "",
+    act: false,
+    system: "",
     sessions: [],
   };
   const [campaign, setCampaign] = useState(initialCampaignState);
@@ -49,16 +52,17 @@ const Campaign = (props) => {
     <div>
       {campaign ? (
         <div>
-          <h5>{campaign.name}</h5>
+          <h5>{campaign.campaign_name}</h5>
           <p>
-            <strong>Cuisine: </strong>
-            {campaign.cuisine}
+            {campaign.system}
             <br />
-            <strong>Address: </strong>
-            {campaign.address.building} {campaign.address.street},{" "}
-            {campaign.address.zipcode}
+            <strong>Active: </strong>
+            {campaign.act}
+            <strong>GM: </strong>
+            {campaign.gm}
           </p>
 
+          {/* ADD SESSIONS */}
           <Link
             to={"/campaigns/" + props.match.params.id + "/session"}
             className="btn btn-primary"
@@ -66,6 +70,7 @@ const Campaign = (props) => {
             Add Session
           </Link>
 
+          {/* SESSION TABLE DISPLAY */}
           <h4> Sessions </h4>
           <div className="row">
             {campaign.sessions.length > 0 ? (

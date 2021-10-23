@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CampaignDataService from "../services/campaign";
+import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 
 const SessionList = (props) => {
@@ -138,20 +138,22 @@ const SessionList = (props) => {
           </div>
         </div>
       </div>
+
+      {/* DISPLAY RESULTS */}
       <div className="row">
         {campaigns.map((camp) => {
-          const address = `${camp.address.building} ${camp.address.street}, ${camp.address.zipcode}`;
           return (
             <div className="col-lg-4 pb-1">
               <div className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{camp.name}</h5>
+                  <h5 className="card-title">{camp.campaign_name}</h5>
+                  <h6 className="card-text">{camp.system}</h6>
                   <p className="card-text">
-                    <strong>Cuisine: </strong>
-                    {camp.cuisine}
+                    <strong>Game Master: </strong>
+                    {camp.gamemaster}
                     <br />
-                    <strong>Address: </strong>
-                    {address}
+                    <strong>Active: </strong>
+                    {camp.active}
                   </p>
                   <div className="row">
                     <Link
