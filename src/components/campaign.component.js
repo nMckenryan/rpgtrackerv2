@@ -47,6 +47,15 @@ const Campaign = (props) => {
       });
   };
 
+  // Trims Session log to excerpt if over 150 chars.
+  const trimSession = (sLog) => {
+    if (sLog.length > 150) {
+      return sLog.substr(0, 160) + "..";
+    } else {
+      return sLog;
+    }
+  };
+
   // CLIENT VIEW
   return (
     <div>
@@ -80,8 +89,6 @@ const Campaign = (props) => {
                     <div className="card">
                       <div className="card-body">
                         <p className="card-text">
-                          {session.text}
-                          <br />
                           <strong>User: </strong>
                           {session.char_name}
                           <br />
@@ -89,15 +96,12 @@ const Campaign = (props) => {
                           {session.char_level.toString()}
                           <strong>Date: </strong>
                           {session.session_date}
+                          <br />
+                          <strong>Session Log: </strong>
+                          <p>{trimSession(session.session_log)}</p>
                         </p>
                         {props.user && props.user.id === session.user_id && (
                           <div className="row">
-                            <a
-                              className="btn btn-primary col-lg-5 mx-1 mb-1"
-                              onClick={() => deleteSession(session._id, index)}
-                            >
-                              Delete
-                            </a>
                             <Link
                               to={{
                                 pathname:
@@ -108,10 +112,16 @@ const Campaign = (props) => {
                                   currentSession: session,
                                 },
                               }}
-                              className="btn btn-primary col-lg-5 mx-1 mb-1"
+                              className="btn btn-info col-lg-5 mx-1 mb-1"
                             >
                               Edit
                             </Link>
+                            <a
+                              className="btn btn-danger col-lg-5 mx-1 mb-1"
+                              onClick={() => deleteSession(session._id, index)}
+                            >
+                              Delete
+                            </a>
                           </div>
                         )}
                       </div>

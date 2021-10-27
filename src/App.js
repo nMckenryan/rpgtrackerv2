@@ -1,15 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch, Link } from "react-router-dom";
-// import Container from "react-bootstrap/Container";
-// import "./custom.scss";
 
 import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
 import Login from "./components/Login.js";
 
 import Campaign from "./components/campaign.component";
-import TopBar from "./components/TopBar.component";
 import CompileCampaign from "./components/CompileCampaign.component";
 
 function App() {
@@ -30,13 +27,6 @@ function App() {
           Dungeon Tracker
         </a>
         <div className="navbar-nav mr-auto">
-          {/* View Campaigns Link Redundant? */}
-          <li className="nav-item">
-            <Link to={"/campaigns"} className="nav-link">
-              Campaigns
-            </Link>
-          </li>
-
           {/* Create Campaign Link */}
           <li className="nav-item">
             <Link to={"/campaign-new"} className="nav-link">
@@ -90,23 +80,6 @@ function App() {
         </Switch>
       </div>
     </div>
-    // <Router>
-    //   <Container>
-    //     <br />
-    //     <h1>Dungeon Tracker</h1>
-    //     <br />
-    //     <TopBar />
-    //     <div className="mainSection">
-    //       <Route path="/" exact component={CampaignList} />
-    //       <Route path="/edit/:id" component={CompileSession} />
-    //       <Route path="/createSes" component={CompileSession} />
-    //       <Route path="/createCamp" component={CreateCampaign} />
-    //     </div>
-    //     <footer>
-    //       <small>Built by Nigel Mckenzie-Ryan (github.com/nMckenryan)</small>
-    //     </footer>
-    //   </Container>
-    // </Router>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
+import DatePicker from "react-date-picker";
 
 // Add or Edit a Session
 
@@ -14,6 +15,7 @@ const CompileCampaign = (props) => {
   };
 
   let editing = false; //   Verify if Session is being Edited or Created.
+  const [startDate, setStartDate] = useState(new Date());
 
   const [values, setValues] = useState(initialValues);
   const [submitted, setSubmitted] = useState(false);
@@ -38,7 +40,7 @@ const CompileCampaign = (props) => {
     var data = {
       campaign_name: values.campaign_name,
       game_master: new Date(),
-      date_started: values.date_started,
+      date_started: startDate,
       game_system: values.game_system,
       active: values.active,
       user_id: props.user.id,
@@ -135,15 +137,7 @@ const CompileCampaign = (props) => {
                       Date Started:
                     </span>
                   </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.date_started}
-                    onChange={handleInputChange}
-                    name="date_started"
-                  />
+                  <DatePicker onChange={setStartDate} value={startDate} />
                 </div>
 
                 <div class="input-group mb-3">
@@ -185,8 +179,8 @@ const CompileCampaign = (props) => {
           )}
         </div>
       ) : (
-        //   Failstate if not Logged in
-        <div>Please log in.</div>
+        //   Reroutes to Login page if not logged in
+        props.history.push("/login")
       )}
     </div>
   );

@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
+import DatePicker from "react-date-picker";
 
 // Add or Edit a Session
 
 const CompileSession = (props) => {
   let initialValues = {
     session_log: "",
-    session_date: "",
+    session_date: new Date(),
     char_name: "",
-    char_level: 0,
+    char_level: "",
   };
+
+  const [calendate, setCalendate] = useState(new Date());
 
   let editing = false; //   Verify if Session is being Edited or Created.
 
@@ -36,7 +39,7 @@ const CompileSession = (props) => {
   const saveSession = () => {
     var data = {
       session_log: values.session_log,
-      session_date: new Date(),
+      session_date: calendate,
       char_name: values.char_name,
       char_level: values.char_level,
       user_id: props.user.id,
@@ -92,23 +95,15 @@ const CompileSession = (props) => {
                 <label htmlFor="description">
                   {editing ? "Edit" : "Create"} Session
                 </label>
-
+                {/* 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">
                       Session Date:
                     </span>
-                  </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.session_date}
-                    onChange={handleInputChange}
-                    name="session_date"
-                  />
-                </div>
+                  </div> */}
+
+                <DatePicker onChange={setCalendate} value={calendate} />
 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -128,12 +123,12 @@ const CompileSession = (props) => {
 
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon3">
-                      Level:
+                      Class & Level:
                     </span>
                   </div>
 
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     id="text"
                     required
@@ -144,9 +139,7 @@ const CompileSession = (props) => {
                 </div>
 
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Session Log</span>
-                  </div>
+                  <span class="input-group-text">Session Log</span>
                   <textarea
                     type="text"
                     className="form-control"
@@ -167,7 +160,7 @@ const CompileSession = (props) => {
         </div>
       ) : (
         //   Failstate if not Logged in
-        <div>Please log in.</div>
+        props.history.push("/login")
       )}
     </div>
   );
