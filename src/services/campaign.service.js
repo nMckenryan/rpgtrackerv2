@@ -9,7 +9,7 @@ class CampaignDataService {
   }
 
   get(id) {
-    return http.get(`restaurant?id=${id}`);
+    return http.get(`campaign?id=${id}`);
   }
 
   find(query, by = "name", page = 0) {
@@ -18,6 +18,10 @@ class CampaignDataService {
 
   createSession(data) {
     return http.post("/session-new", data);
+  }
+
+  createCampaign(data) {
+    return http.post("/campaign-new", data);
   }
 
   updateSession(data) {

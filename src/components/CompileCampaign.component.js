@@ -2,49 +2,52 @@ import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 
-// Add or Edit a Campaign
+// Add or Edit a Session
 
 const CompileCampaign = (props) => {
-  let initialCampaignState = "";
+  let initialValues = {
+    campaign_name: "",
+    game_master: "",
+    date_started: "",
+    game_system: "",
+    active: false,
+  };
 
-  //   Verify if Campaign is being Edited or Created.
-  let editing = false;
+  let editing = false; //   Verify if Session is being Edited or Created.
+
+  const [values, setValues] = useState(initialValues);
+  const [submitted, setSubmitted] = useState(false);
 
   //   Enables Edit Mode
   if (props.location.state && props.location.state.currentCampaign) {
     editing = true;
-    initialCampaignState = props.location.state.currentCampaign.text;
+    initialValues = props.location.state.currentCampaign;
   }
 
-  // Dunno if i can set this all to the same value.
-  const [campname, setCampname] = useState(initialCampaignState);
-  const [gm, setGm] = useState(initialCampaignState);
-  const [act, setAct] = useState(initialCampaignState);
-  const [system, setSystem] = useState(initialCampaignState);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-  const [submitted, setSubmitted] = useState(false);
-
-  //   Change State on Type
-  const handleInputChange = (event) => {
-    setCampname(event.target.value);
-    setGm(event.target.value);
-    setAct(event.target.value);
-    setSystem(event.target.value);
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
-  const saveCampaign = () => {
+  // SAVE SESSION
+  const saveSession = () => {
     var data = {
-      campaign_name: campname,
-      gamemaster: gm,
-      game_system: system,
-      active: act,
+      campaign_name: values.campaign_name,
+      game_master: new Date(),
+      date_started: values.date_started,
+      game_system: values.game_system,
+      active: values.active,
       user_id: props.user.id,
       campaign_id: props.match.params.id,
     };
 
     // EDITING
     if (editing) {
-      data.campaign_id = props.location.state.currentCampaign._id;
+      data.session_id = props.location.state.currentCampaign._id;
       CampaignDataService.updateCampaign(data)
         .then((response) => {
           setSubmitted(true);
@@ -53,6 +56,7 @@ const CompileCampaign = (props) => {
         .catch((e) => {
           console.log(e);
         });
+
       // CREATING
     } else {
       CampaignDataService.createCampaign(data)
@@ -84,36 +88,97 @@ const CompileCampaign = (props) => {
               </Link>
             </div>
           ) : (
-            // COMPILE REVIEW
+            // COMPILE CAMPAIGN
             <div>
-              {/* TODO: Reusable components?  */}
-
               <div className="form-group">
-                <label htmlFor="description">
+                <h2 htmlFor="description">
                   {editing ? "Edit" : "Create"} Campaign
-                </label>
+                </h2>
 
-                <input
-                  type="text"
-                  className="form-control"
-                  id="text"
-                  required
-                  value={campaign}
-                  onChange={handleInputChange}
-                  name="text"
-                />
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">
+                      Campaign Name:
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.campaign_name}
+                    onChange={handleInputChange}
+                    name="campaign_name"
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  className="form-control"
-                  id="text"
-                  required
-                  value={campaign}
-                  onChange={handleInputChange}
-                  name="text"
-                />
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">
+                      Game Master:
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.game_master}
+                    onChange={handleInputChange}
+                    name="game_master"
+                  />
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">
+                      Date Started:
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.date_started}
+                    onChange={handleInputChange}
+                    name="date_started"
+                  />
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">
+                      Game System:
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.game_system}
+                    onChange={handleInputChange}
+                    name="game_system"
+                  />
+                </div>
+                <div>
+                  {editing ? (
+                    <input
+                      type="radio"
+                      className="form-control"
+                      id="text"
+                      required
+                      value={values.active}
+                      onChange={handleInputChange}
+                      name="active"
+                    />
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
               </div>
-              <button onClick={saveCampaign} className="btn btn-success">
+              <button onClick={saveSession} className="btn btn-success">
                 Submit
               </button>
             </div>

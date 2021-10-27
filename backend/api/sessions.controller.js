@@ -9,7 +9,7 @@ export default class SessionsController {
       const userInfo = {
         name: req.body.name,
         _id: req.body.user_id,
-        level: req.body.level,
+        level: parseInt(req.body.level),
       };
       const date = new Date();
 
@@ -30,7 +30,7 @@ export default class SessionsController {
     try {
       const sessionId = req.body.session_id;
       const text = req.body.text;
-      const level = req.body.level;
+      const level = parseInt(req.body.level);
       const date = new Date();
 
       const sessionResponse = await SessionsDAO.updateSession(

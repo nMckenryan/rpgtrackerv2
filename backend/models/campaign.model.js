@@ -1,22 +1,56 @@
-//MODEL FOR CAMPAIGN OBJECT
+// MONGODB REALM WEBHOOK MODEL FOR GETTING CAMPAIGN BY ID (code stored as archive, .)
 
-const mongoose = require('mongoose');
+// This function is the webhook's request handler.
+exports = async function (payload, response) {
+  const id = payload.query.id || "";
 
-const Schema = mongoose.Schema;
+  const campaigns = context.services
+    .get("mongodb-atlas")
+    .db("dungeontracker")
+    .collection("campaigns");
 
-const campaignSchema = new Schema({
-    cName: {
-        type: String,
-        required: true,
-        unique: true,
-        minLength: 3,
-        trim: true,
-        minlength: 3
+  const pipeline = [
+    {
+      $match: {
+        _id: BSON.ObjectId(id),
+      },
     },
-}, {
-    timeStamps: true
-});
+    {
+      $lookup: {
+        from: "sessions",
+        let: {
+          id: "$_id",
+        },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $eq: ["$campaign_id", "$$id"],
+              },
+            },
+          },
+          {
+            $sort: {
+              date: -1,
+            },
+          },
+        ],
+        as: "sessions",
+      },
+    },
+    {
+      $addFields: {
+        sessions: "$sessions",
+      },
+    },
+  ];
 
-const Campaign = mongoose.model('Campaign', campaignSchema);
+  restaurant = await campaigns.aggregate(pipeline).next();
+  restaurant._id = restaurant._id.toString();
 
-module.exports = Campaign;
+  restaurant.sessions.forEach((session) => {
+    session.date = new Date(session.date).toString();
+    session._id = session._id.toString();
+  });
+  return restaurant;
+};

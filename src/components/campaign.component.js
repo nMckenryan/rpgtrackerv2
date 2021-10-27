@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 
 const Campaign = (props) => {
   const initialCampaignState = {
-    id: null,
     campaign_name: "",
-    gm: "",
-    act: false,
-    system: "",
+    game_master: "",
+    date_started: "",
+    game_system: "",
+    active: false,
     sessions: [],
   };
   const [campaign, setCampaign] = useState(initialCampaignState);
@@ -54,12 +54,12 @@ const Campaign = (props) => {
         <div>
           <h5>{campaign.campaign_name}</h5>
           <p>
-            {campaign.system}
+            {campaign.game_system}
             <br />
             <strong>Active: </strong>
-            {campaign.act}
+            {campaign.active}
             <strong>GM: </strong>
-            {campaign.gm}
+            {campaign.game_master}
           </p>
 
           {/* ADD SESSIONS */}
@@ -83,16 +83,18 @@ const Campaign = (props) => {
                           {session.text}
                           <br />
                           <strong>User: </strong>
-                          {session.name}
+                          {session.char_name}
                           <br />
+                          <strong>Level: </strong>
+                          {session.char_level.toString()}
                           <strong>Date: </strong>
-                          {session.date}
+                          {session.session_date}
                         </p>
                         {props.user && props.user.id === session.user_id && (
                           <div className="row">
                             <a
-                              onClick={() => deleteSession(session._id, index)}
                               className="btn btn-primary col-lg-5 mx-1 mb-1"
+                              onClick={() => deleteSession(session._id, index)}
                             >
                               Delete
                             </a>

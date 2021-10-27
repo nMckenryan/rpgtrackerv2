@@ -32,7 +32,7 @@ export default class CampaignsDAO {
       } else if ("isRunning" in filters) {
         query = { cuisine: { $eq: filters["isRunning"] } };
       } else if ("dm" in filters) {
-        query = { "address.zipcode": { $eq: filters["zipcode"] } };
+        query = { dm: { $eq: filters["gamemaster"] } };
       }
     }
 

@@ -147,13 +147,17 @@ const SessionList = (props) => {
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{camp.campaign_name}</h5>
-                  <h6 className="card-text">{camp.system}</h6>
+                  <h6 className="card-text">{camp.game_system}</h6>
                   <p className="card-text">
                     <strong>Game Master: </strong>
-                    {camp.gamemaster}
+                    {camp.game_master}
                     <br />
                     <strong>Active: </strong>
-                    {camp.active}
+                    {camp.active ? (
+                      <i class="bi bi-check-circle-fill"></i>
+                    ) : (
+                      <i class="bi bi-x-lg"></i>
+                    )}
                   </p>
                   <div className="row">
                     <Link

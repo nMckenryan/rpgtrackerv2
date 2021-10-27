@@ -4,12 +4,13 @@ import { Route, Switch, Link } from "react-router-dom";
 // import Container from "react-bootstrap/Container";
 // import "./custom.scss";
 
-import SessionList from "./components/SessionList.component";
+import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
 import Login from "./components/Login.js";
 
 import Campaign from "./components/campaign.component";
 import TopBar from "./components/TopBar.component";
+import CompileCampaign from "./components/CompileCampaign.component";
 
 function App() {
   const [user, setUser] = React.useState(null);
@@ -26,12 +27,20 @@ function App() {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/campaigns" className="navbar-brand">
-          Sessions
+          Dungeon Tracker
         </a>
         <div className="navbar-nav mr-auto">
+          {/* View Campaigns Link Redundant? */}
           <li className="nav-item">
             <Link to={"/campaigns"} className="nav-link">
               Campaigns
+            </Link>
+          </li>
+
+          {/* Create Campaign Link */}
+          <li className="nav-item">
+            <Link to={"/campaign-new"} className="nav-link">
+              Create a Campaign
             </Link>
           </li>
           <li className="nav-item">
@@ -52,9 +61,10 @@ function App() {
         </div>
       </nav>
 
+      {/* ROUTER */}
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/campaigns"]} component={SessionList} />
+          <Route exact path={["/", "/campaigns"]} component={CampaignList} />
           {/* GET SESSION */}
           <Route
             path="/campaigns/:id/session"
@@ -64,6 +74,12 @@ function App() {
           <Route
             path="/campaigns/:id"
             render={(props) => <Campaign {...props} user={user} />}
+          />
+
+          {/* CREATE CAMPAIGN */}
+          <Route
+            path="/campaign-new/"
+            render={(props) => <CompileCampaign {...props} user={user} />}
           />
 
           {/* LOGIN */}
@@ -81,7 +97,7 @@ function App() {
     //     <br />
     //     <TopBar />
     //     <div className="mainSection">
-    //       <Route path="/" exact component={SessionList} />
+    //       <Route path="/" exact component={CampaignList} />
     //       <Route path="/edit/:id" component={CompileSession} />
     //       <Route path="/createSes" component={CompileSession} />
     //       <Route path="/createCamp" component={CreateCampaign} />
