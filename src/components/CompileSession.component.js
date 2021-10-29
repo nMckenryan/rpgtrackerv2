@@ -49,7 +49,7 @@ const CompileSession = (props) => {
     // EDITING
     if (editing) {
       data.session_id = props.location.state.currentSession._id;
-      CampaignDataService.updateSession(data)
+      CampaignDataService.updateRecord(data, "session")
         .then((response) => {
           setSubmitted(true);
           console.log(response.data);
@@ -60,7 +60,7 @@ const CompileSession = (props) => {
 
       // CREATING
     } else {
-      CampaignDataService.createSession(data)
+      CampaignDataService.createRecord(data, "session")
         .then((response) => {
           setSubmitted(true);
           console.log(response.data);

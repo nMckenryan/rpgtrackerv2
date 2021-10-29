@@ -21,6 +21,7 @@ const Login = (props) => {
   return (
     <div className="submit-form">
       <div>
+        <h3>Please Login to manage Campaigns or Sessions</h3>
         <div className="form-group">
           <label htmlFor="user">Username</label>
           <input

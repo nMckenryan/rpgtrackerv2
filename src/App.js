@@ -6,7 +6,7 @@ import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
 import Login from "./components/Login.js";
 
-import Campaign from "./components/campaign.component";
+import Campaign from "./components/CampaignPage.component";
 import CompileCampaign from "./components/CompileCampaign.component";
 
 function App() {
@@ -23,14 +23,22 @@ function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/campaigns" className="navbar-brand">
+        <a class="navbar-brand" href="/campaigns">
+          <img
+            src="/vikinglogo.png"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="vikingLogo"
+          />
           Dungeon Tracker
         </a>
+
         <div className="navbar-nav mr-auto">
           {/* Create Campaign Link */}
           <li className="nav-item">
             <Link to={"/campaign-new"} className="nav-link">
-              Create a Campaign
+              <i class="bi bi-pencil-fill"></i> New Campaign
             </Link>
           </li>
           <li className="nav-item">
@@ -40,10 +48,12 @@ function App() {
                 className="nav-link"
                 style={{ cursor: "pointer" }}
               >
+                <i class="bi bi-door-closed-fill"></i>
                 Logout {user.name}
               </a>
             ) : (
               <Link to={"/login"} className="nav-link">
+                <i class="bi bi-door-open"></i>
                 Login
               </Link>
             )}

@@ -9,7 +9,7 @@ const CompileCampaign = (props) => {
   let initialValues = {
     campaign_name: "",
     game_master: "",
-    date_started: "",
+    date_started: new Date(),
     game_system: "",
     active: false,
   };
@@ -50,7 +50,7 @@ const CompileCampaign = (props) => {
     // EDITING
     if (editing) {
       data.session_id = props.location.state.currentCampaign._id;
-      CampaignDataService.updateCampaign(data)
+      CampaignDataService.updateRecord(data, "campaign")
         .then((response) => {
           setSubmitted(true);
           console.log(response.data);
@@ -61,7 +61,7 @@ const CompileCampaign = (props) => {
 
       // CREATING
     } else {
-      CampaignDataService.createCampaign(data)
+      CampaignDataService.createRecord(data, "campaign")
         .then((response) => {
           setSubmitted(true);
           console.log(response.data);

@@ -5,13 +5,12 @@ import { Link } from "react-router-dom";
 const SessionList = (props) => {
   const [campaigns, setCampaigns] = useState([]);
   const [searchName, setSearchName] = useState("");
-  const [searchZip, setSearchZip] = useState("");
-  const [searchCuisine, setSearchCuisine] = useState("");
-  const [cuisines, setCuisines] = useState(["All Cuisines"]);
+  const [searchSystem, setSearchSystem] = useState("");
+  const [systems, setSystems] = useState(["All Systems"]);
 
   useEffect(() => {
     retrieveCampaigns();
-    retrieveCuisines();
+    retrieveSystems();
   }, []);
 
   const onChangeSearchName = (e) => {
@@ -19,14 +18,9 @@ const SessionList = (props) => {
     setSearchName(searchName);
   };
 
-  const onChangeSearchZip = (e) => {
-    const searchZip = e.target.value;
-    setSearchZip(searchZip);
-  };
-
-  const onChangeSearchCuisine = (e) => {
-    const searchCuisine = e.target.value;
-    setSearchCuisine(searchCuisine);
+  const onChangeSearchSystem = (e) => {
+    const searchSystem = e.target.value;
+    setSearchSystem(searchSystem);
   };
 
   const retrieveCampaigns = () => {
@@ -40,11 +34,11 @@ const SessionList = (props) => {
       });
   };
 
-  const retrieveCuisines = () => {
-    CampaignDataService.getCuisines()
+  const retrieveSystems = () => {
+    CampaignDataService.getSystems()
       .then((response) => {
         console.log(response.data);
-        setCuisines(["All Cuisines"].concat(response.data));
+        setSystems(["All Systems"].concat(response.data));
       })
       .catch((e) => {
         console.log(e);
@@ -70,15 +64,11 @@ const SessionList = (props) => {
     find(searchName, "name");
   };
 
-  const findByZip = () => {
-    find(searchZip, "zipcode");
-  };
-
-  const findByCuisine = () => {
-    if (searchCuisine === "All Cuisines") {
+  const findBySystem = () => {
+    if (searchSystem === "All Systems") {
       refreshList();
     } else {
-      find(searchCuisine, "cuisine");
+      find(searchSystem, "cuisine");
     }
   };
 
@@ -86,6 +76,8 @@ const SessionList = (props) => {
     <div>
       <div className="row pb-1">
         <div className="input-group col-lg-4">
+          {/* SEARCH BAR */}
+          {/* TODO: Make searchable by anything */}
           <input
             type="text"
             className="form-control"
@@ -103,27 +95,12 @@ const SessionList = (props) => {
             </button>
           </div>
         </div>
+
+        {/* SORT BY CAMPAIGN (LARGEST?) */}
+        {/* TODO: Sort by largest campaign */}
         <div className="input-group col-lg-4">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by zip"
-            value={searchZip}
-            onChange={onChangeSearchZip}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByZip}
-            >
-              Search
-            </button>
-          </div>
-        </div>
-        <div className="input-group col-lg-4">
-          <select onChange={onChangeSearchCuisine}>
-            {cuisines.map((cuisine) => {
+          <select onChange={onChangeSearchSystem}>
+            {systems.map((cuisine) => {
               return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
             })}
           </select>
@@ -131,41 +108,69 @@ const SessionList = (props) => {
             <button
               className="btn btn-outline-secondary"
               type="button"
-              onClick={findByCuisine}
+              onClick={findBySystem}
             >
-              Search
+              Sort
             </button>
           </div>
         </div>
       </div>
 
-      {/* DISPLAY RESULTS */}
+      {/* RESULTS GRID */}
       <div className="row">
         {campaigns.map((camp) => {
           return (
             <div className="col-lg-4 pb-1">
               <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">{camp.campaign_name}</h5>
-                  <h6 className="card-text">{camp.game_system}</h6>
-                  <p className="card-text">
-                    <strong>Game Master: </strong>
-                    {camp.game_master}
-                    <br />
-                    <strong>Active: </strong>
+                {/* CAMPAIGN CARD BOX */}
+                <div className="card-header">
+                  <h3>
+                    {camp.campaign_name + " "}
                     {camp.active ? (
                       <i class="bi bi-check-circle-fill"></i>
                     ) : (
                       <i class="bi bi-x-lg"></i>
                     )}
-                  </p>
+                  </h3>
+                </div>
+
+                <div className="card-body">
                   <div className="row">
-                    <Link
-                      to={"/campaigns/" + camp._id}
-                      className="btn btn-primary col-lg-5 mx-1 mb-1"
-                    >
-                      View Sessions
-                    </Link>
+                    <div className="col">
+                      <h6 className="card-text">{camp.game_system}</h6>
+                      <small class="text-muted">Game System</small>
+                    </div>
+                    <div className="col">
+                      <h6 className="card-text">{camp.game_master}</h6>
+                      <small class="text-muted">Game Master</small>
+                    </div>
+                  </div>
+                  <br />
+
+                  <div className="row">
+                    <div className="col">
+                      <Link
+                        to={"/campaigns/" + camp._id}
+                        className="btn btn-primary col-lg-5 mx-1 mb-1"
+                      >
+                        <i class="bi bi-eyeglasses"></i> View Sessions
+                      </Link>
+                    </div>
+                    <div className="col">
+                      {/* EDIT CAMPAiGN BUTTONS */}
+                      <Link
+                        to={{
+                          pathname: "/campaigns/" + props.match.params.id,
+                          // state: {
+                          //   currentCampaign: campaign,
+                          // },
+                        }}
+                        className="btn btn-info col-lg-5 mx-1 mb-1"
+                      >
+                        <i class="bi bi-pencil-square"></i>
+                        <h6>Edit Campaign</h6>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -16,27 +16,24 @@ class CampaignDataService {
     return http.get(`rpgtrackerhook?${by}=${query}&page=${page}`);
   }
 
-  createSession(data) {
-    return http.post("/session-new", data);
+  // CRUD Actions for Campaign/Session. "type" argument determines path used
+  createRecord(data, type) {
+    return http.post(`/${type}-new`, data);
   }
 
-  createCampaign(data) {
-    return http.post("/campaign-new", data);
+  updateRecord(data, type) {
+    return http.put(`/${type}-edit`, data);
   }
 
-  updateSession(data) {
-    return http.put("/session-edit", data);
-  }
-
-  deleteSession(id, userId) {
-    return http.delete(`/session-delete?id=${id}`, {
+  deleteRecord(id, userId, type) {
+    return http.delete(`/${type}-delete?id=${id}`, {
       data: { user_id: userId },
       // Get user ID for authenticating permissions
     });
   }
 
-  getCuisines(id) {
-    return http.get(`/cuisines`);
+  getSystems(id) {
+    return http.get(`/systems`);
   }
 }
 

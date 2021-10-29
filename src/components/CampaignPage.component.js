@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 
-// VIEW OF SINGULAR CAMPAIGN
+// VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions
 
 const Campaign = (props) => {
   const initialCampaignState = {
     campaign_name: "",
     game_master: "",
-    date_started: "",
+    date_started: new Date(),
     game_system: "",
     active: false,
     sessions: [],
@@ -33,7 +33,7 @@ const Campaign = (props) => {
 
   // DELETE - only allows user who created session to delete session
   const deleteSession = (sessionId, index) => {
-    CampaignDataService.deleteSession(sessionId, props.user.id)
+    CampaignDataService.delete(sessionId, props.user.id, "session")
       .then((response) => {
         setCampaign((prevState) => {
           prevState.sessions.splice(index, 1);
@@ -59,28 +59,66 @@ const Campaign = (props) => {
   // CLIENT VIEW
   return (
     <div>
+      <div class="col-1 mb-3">
+        <Link to={"/"} className="btn btn-primary">
+          <i class="bi bi-arrow-left-circle"></i>
+        </Link>
+      </div>
+      {/* CAMPAIGN DETAILS */}
       {campaign ? (
         <div>
-          <h5>{campaign.campaign_name}</h5>
-          <p>
-            {campaign.game_system}
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h1 className="text-uppercase">{campaign.campaign_name}</h1>
+                <small class="text-muted">Campaign Name</small>
+              </div>
+            </div>
             <br />
-            <strong>Active: </strong>
-            {campaign.active}
-            <strong>GM: </strong>
-            {campaign.game_master}
-          </p>
+            <div class="row">
+              <div class="col-2">
+                <h2>{campaign.game_system}</h2>
+                <small class="text-muted">Game System</small>
+              </div>
+
+              <div class="col-2">
+                {campaign.active ? (
+                  <>
+                    <i class="bi bi-check-circle-fill"></i>
+                    <small class="text-muted">Campaign Ongoing</small>
+                  </>
+                ) : (
+                  <i class="bi bi-x-lg">Campaign Concluded</i>
+                )}
+              </div>
+              <div class="col-3">
+                <h3>{campaign.game_master} </h3>
+                <small class="text-muted">Game Master </small>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          {/* SESSION TABLE DISPLAY */}
 
           {/* ADD SESSIONS */}
           <Link
             to={"/campaigns/" + props.match.params.id + "/session"}
             className="btn btn-primary"
           >
+            <i class="bi bi-plus"></i>
             Add Session
           </Link>
 
-          {/* SESSION TABLE DISPLAY */}
-          <h4> Sessions </h4>
+          {/* DELETE BUTTON */}
+          {/* <a
+            className="btn btn-danger col-lg-5 mx-1 mb-1"
+            onClick={() => deleteRecord(campaign._id, index, "campaign")}
+          >
+            <i class="bi bi-trash"></i>
+            <h6>Delete</h6>
+          </a> */}
+
           <div className="row">
             {campaign.sessions.length > 0 ? (
               campaign.sessions.map((session, index) => {
@@ -95,13 +133,15 @@ const Campaign = (props) => {
                           <strong>Level: </strong>
                           {session.char_level.toString()}
                           <strong>Date: </strong>
-                          {session.session_date}
+                          {Date.parse(session.session_date)}
                           <br />
                           <strong>Session Log: </strong>
                           <p>{trimSession(session.session_log)}</p>
                         </p>
+
                         {props.user && props.user.id === session.user_id && (
                           <div className="row">
+                            {/* EDIT BUTTONS */}
                             <Link
                               to={{
                                 pathname:
@@ -114,13 +154,19 @@ const Campaign = (props) => {
                               }}
                               className="btn btn-info col-lg-5 mx-1 mb-1"
                             >
-                              Edit
+                              <i class="bi bi-pencil-square"></i>
+                              <h6>Edit</h6>
                             </Link>
+
+                            {/* DELETE BUTTON */}
                             <a
                               className="btn btn-danger col-lg-5 mx-1 mb-1"
-                              onClick={() => deleteSession(session._id, index)}
+                              onClick={() =>
+                                deleteSession(session._id, index, "session")
+                              }
                             >
-                              Delete
+                              <i class="bi bi-trash"></i>
+                              <h6>Delete</h6>
                             </a>
                           </div>
                         )}
