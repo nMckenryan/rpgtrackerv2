@@ -8,11 +8,14 @@ import Login from "./components/Login.js";
 
 import Campaign from "./components/CampaignPage.component";
 import CompileCampaign from "./components/CompileCampaign.component";
+import Profile from "./components/Profile.component";
 
 import "react-toastify/dist/ReactToastify.css";
 import Auth0ProviderWithHistory from "./auth0Provider";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import LoginButton from "./components/LoginButton.component";
+import LogoutButton from "./components/LogoutButton.component.js";
 
 function App() {
   // const [user, setUser] = React.useState(null);
@@ -67,6 +70,8 @@ function App() {
                 </Link>
               )} */}
               <LoginButton></LoginButton>
+              <LogoutButton></LogoutButton>
+              <Profile></Profile>
 
               {!isLoading && !user && (
                 <button
