@@ -49,7 +49,7 @@ const CompileCampaign = (props) => {
 
     // EDITING
     if (editing) {
-      data.session_id = props.location.state.currentCampaign._id;
+      data.campaign_id = props.location.state.currentCampaign._id;
       CampaignDataService.updateRecord(data, "campaign")
         .then((response) => {
           setSubmitted(true);

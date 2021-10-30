@@ -119,6 +119,7 @@ const SessionList = (props) => {
       {/* RESULTS GRID */}
       <div className="row">
         {campaigns.map((camp) => {
+          console.log(camp);
           return (
             <div className="col-lg-4 pb-1">
               <div className="card">
@@ -135,7 +136,7 @@ const SessionList = (props) => {
                 </div>
 
                 <div className="card-body">
-                  <div className="row">
+                  <div className="row justify-content-around">
                     <div className="col">
                       <h6 className="card-text">{camp.game_system}</h6>
                       <small class="text-muted">Game System</small>
@@ -147,30 +148,34 @@ const SessionList = (props) => {
                   </div>
                   <br />
 
-                  <div className="row">
-                    <div className="col">
+                  <div className="row justify-content-around">
+                    <div className="col-5">
                       <Link
                         to={"/campaigns/" + camp._id}
-                        className="btn btn-primary col-lg-5 mx-1 mb-1"
+                        className="btn btn-primary mx-1 mb-1"
                       >
-                        <i class="bi bi-eyeglasses"></i> View Sessions
+                        <i class="bi bi-eyeglasses"></i>
+                        <h6>View Sessions</h6>
                       </Link>
                     </div>
-                    <div className="col">
+
+                    {/* {props.user && props.user.id === camp.user_id && ( */}
+                    <div className="col-5">
                       {/* EDIT CAMPAiGN BUTTONS */}
                       <Link
                         to={{
-                          pathname: "/campaigns/" + props.match.params.id,
-                          // state: {
-                          //   currentCampaign: campaign,
-                          // },
+                          pathname: "/campaigns/" + camp._id,
+                          state: {
+                            currentCampaign: camp,
+                          },
                         }}
-                        className="btn btn-info col-lg-5 mx-1 mb-1"
+                        className="btn btn-info mx-1 mb-1"
                       >
                         <i class="bi bi-pencil-square"></i>
-                        <h6>Edit Campaign</h6>
+                        <h6>Edit Session</h6>
                       </Link>
                     </div>
+                    {/* )} */}
                   </div>
                 </div>
               </div>
