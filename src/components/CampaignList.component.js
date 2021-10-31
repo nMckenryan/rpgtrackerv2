@@ -73,7 +73,7 @@ const SessionList = (props) => {
   };
 
   return (
-    <div>
+    <>
       <div className="row pb-1">
         <div className="input-group col-lg-4">
           {/* SEARCH BAR */}
@@ -159,23 +159,23 @@ const SessionList = (props) => {
                       </Link>
                     </div>
 
-                    {/* {props.user && props.user.id === camp.user_id && ( */}
-                    <div className="col-5">
-                      {/* EDIT CAMPAiGN BUTTONS */}
-                      <Link
-                        to={{
-                          pathname: "/campaigns/" + camp._id,
-                          state: {
-                            currentCampaign: camp,
-                          },
-                        }}
-                        className="btn btn-info mx-1 mb-1"
-                      >
-                        <i class="bi bi-pencil-square"></i>
-                        <h6>Edit Session</h6>
-                      </Link>
-                    </div>
-                    {/* )} */}
+                    {props.user === camp.user_id && (
+                      <div className="col-5">
+                        {/* EDIT CAMPAiGN BUTTONS */}
+                        <Link
+                          to={{
+                            pathname: "/campaigns/" + camp._id,
+                            state: {
+                              currentCampaign: camp,
+                            },
+                          }}
+                          className="btn btn-info mx-1 mb-1"
+                        >
+                          <i class="bi bi-pencil-square"></i>
+                          <h6>Edit Session</h6>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@ const SessionList = (props) => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

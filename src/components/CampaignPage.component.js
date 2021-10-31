@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+
 // VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions
 
 const Campaign = (props) => {
@@ -12,7 +14,9 @@ const Campaign = (props) => {
     active: false,
     sessions: [],
   };
+
   const [campaign, setCampaign] = useState(initialCampaignState);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   const getCampaign = (id) => {
     CampaignDataService.get(id)
@@ -32,7 +36,7 @@ const Campaign = (props) => {
 
   // DELETE - only allows user who created session to delete session
   const deleteSession = (sessionId, index) => {
-    CampaignDataService.delete(sessionId, props.user.id, "session")
+    CampaignDataService.deleteRecord(sessionId, user.name, "session")
       .then((response) => {
         setCampaign((prevState) => {
           prevState.sessions.splice(index, 1);
@@ -110,25 +114,18 @@ const Campaign = (props) => {
                 )}
               </div>
 
-              <div class="col-3">
-                {/* ADD SESSIONS */}
-                <Link
-                  to={"/campaigns/" + props.match.params.id + "/session"}
-                  className="btn btn-primary"
-                >
-                  <i class="bi bi-plus"></i>
-                  Add Session
-                </Link>
-              </div>
-
-              {/* DELETE BUTTON */}
-              {/* <a
-              className="btn btn-danger col-lg-5 mx-1 mb-1"
-              onClick={() => deleteRecord(campaign._id, index, "campaign")}
-            >
-              <i class="bi bi-trash"></i>
-              <h6>Delete</h6>
-            </a> */}
+              {isAuthenticated && (
+                <div class="col-3">
+                  {/* ADD SESSIONS */}
+                  <Link
+                    to={"/campaigns/" + props.match.params.id + "/session"}
+                    className="btn btn-primary"
+                  >
+                    <i class="bi bi-plus"></i>
+                    Add Session
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 
@@ -153,7 +150,7 @@ const Campaign = (props) => {
                           <p>{trimSession(session.session_log)}</p>
                         </p>
 
-                        {props.user && props.user.id === session.user_id && (
+                        {isAuthenticated && user.name === session.user_id && (
                           <div className="row">
                             {/* EDIT SESSION  BUTTONS */}
                             <Link
@@ -173,15 +170,13 @@ const Campaign = (props) => {
                             </Link>
 
                             {/* DELETE SESSION BUTTON */}
-                            <a
+                            <button
                               className="btn btn-danger col-lg-5 mx-1 mb-1"
-                              onClick={() =>
-                                deleteSession(session._id, index, "session")
-                              }
+                              onClick={() => deleteSession(session._id, index)}
                             >
                               <i class="bi bi-trash"></i>
                               <h6>Delete Session</h6>
-                            </a>
+                            </button>
                           </div>
                         )}
                       </div>
@@ -190,7 +185,7 @@ const Campaign = (props) => {
                 );
               })
             ) : (
-              // NO SESSION AVAILABLE
+              // IF NO SESSIONS AVAILABLE
               <div className="col-sm-4">
                 <p>No sessions yet.</p>
               </div>

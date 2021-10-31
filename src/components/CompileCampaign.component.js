@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Add or Edit a Session
 
@@ -13,6 +14,8 @@ const CompileCampaign = (props) => {
     game_system: "",
     active: false,
   };
+
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   let editing = false; //   Verify if Session is being Edited or Created.
   const [startDate, setStartDate] = useState(new Date());
@@ -43,7 +46,7 @@ const CompileCampaign = (props) => {
       date_started: startDate,
       game_system: values.game_system,
       active: values.active,
-      user_id: props.user.id,
+      user_id: user.name,
       campaign_id: props.match.params.id,
     };
 
@@ -75,7 +78,7 @@ const CompileCampaign = (props) => {
   return (
     <div>
       {/* Check if Logged in. No edit/creation available if not */}
-      {props.user ? (
+      {isAuthenticated && (
         <div className="submit-form">
           {/* Check if Submitted */}
           {/* TODO: Replace with Toast? */}
@@ -178,9 +181,10 @@ const CompileCampaign = (props) => {
             </div>
           )}
         </div>
-      ) : (
-        //   Reroutes to Login page if not logged in
-        props.history.push("/login")
+        // TO DO: Enfore Login, notify customer
+        // ) : (
+        //   //   Reroutes to Login page if not logged in
+        //   props.history.push("/login")
       )}
     </div>
   );

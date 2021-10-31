@@ -8,8 +8,6 @@ const Auth0ProviderWithHistory = ({ children }) => {
   const domain = process.env.REACT_APP_AUTH0_DOMAIN;
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
-  console.log("AUTH" + process.env.REACT_APP_AUTH0_DOMAIN);
-
   //   USES HISTORY FROM REACT ROUTER TO ATTACH TO PROVIDE
   const history = useHistory();
 

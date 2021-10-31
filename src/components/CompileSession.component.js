@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Add or Edit a Session
 
@@ -17,14 +18,15 @@ const CompileSession = (props) => {
 
   let editing = false; //   Verify if Session is being Edited or Created.
 
-  const [values, setValues] = useState(initialValues);
-  const [submitted, setSubmitted] = useState(false);
-
   //   Enables Edit Mode
   if (props.location.state && props.location.state.currentSession) {
     editing = true;
     initialValues = props.location.state.currentSession;
   }
+
+  const [values, setValues] = useState(initialValues);
+  const [submitted, setSubmitted] = useState(false);
+  const { user } = useAuth0();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +44,7 @@ const CompileSession = (props) => {
       session_date: calendate,
       char_name: values.char_name,
       char_level: values.char_level,
-      user_id: props.user.id,
+      user_id: user.name,
       campaign_id: props.match.params.id,
     };
 
@@ -74,7 +76,7 @@ const CompileSession = (props) => {
   return (
     <div>
       {/* Check if Logged in. No edit/creation available if not */}
-      {props.user ? (
+      {user ? (
         <div className="submit-form">
           {/* Check if Submitted */}
           {/* TODO: Replace with Toast? */}
@@ -89,7 +91,7 @@ const CompileSession = (props) => {
               </Link>
             </div>
           ) : (
-            // COMPILE REVIEW
+            // COMPILE SESSION
             <div>
               <div className="form-group">
                 <label htmlFor="description">
@@ -160,7 +162,7 @@ const CompileSession = (props) => {
         </div>
       ) : (
         //   Failstate if not Logged in
-        props.history.push("/login")
+        props.history.push("/")
       )}
     </div>
   );
