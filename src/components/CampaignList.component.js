@@ -130,7 +130,7 @@ const SessionList = (props) => {
                     {camp.active ? (
                       <i class="bi bi-check-circle-fill"></i>
                     ) : (
-                      <i class="bi bi-x-lg"></i>
+                      <i class="bi bi-x-circle-fill"></i>
                     )}
                   </h3>
                 </div>

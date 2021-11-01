@@ -86,43 +86,57 @@ const Campaign = (props) => {
         <div>
           <div class="container">
             <div class="row">
-              <div class="col-6">
-                <h1 className="text-uppercase">{campaign.campaign_name}</h1>
+              <div class="col">
+                <h3 className="text-uppercase">{campaign.campaign_name}</h3>
                 <small class="text-muted">Campaign Name</small>
               </div>
-              <div class="col-3">
-                <h2>{campaign.game_system}</h2>
+
+              <div class="col-2">
+                <h3>{campaign.game_system}</h3>
                 <small class="text-muted">Game System</small>
               </div>
 
-              <div class="col-3">
+              <div class="col-2">
                 <h3>{campaign.game_master} </h3>
                 <small class="text-muted">Game Master </small>
+              </div>
+
+              <div class="col-3">
+                {campaign.active ? (
+                  <div class="text-center">
+                    <h3>
+                      <i class="bi bi-check-circle-fill"></i>
+                    </h3>
+                    <small class="text-muted">Campaign Active</small>
+                  </div>
+                ) : (
+                  <>
+                    <h3 class="text-center">
+                      <i class="bi bi-x-circle-fill"></i>
+                    </h3>
+                    <small class="text-muted">Campaign Inactive</small>
+                  </>
+                )}
               </div>
             </div>
 
             <br />
 
             <div class="row">
-              <div class="col-3">
-                {campaign.active ? (
-                  <>
-                    <h3 className="btn btn-success">Campaign Active</h3>
-                  </>
-                ) : (
-                  <h3 className="btn btn-dark">Campaign Concluded</h3>
-                )}
-              </div>
-
-              {isAuthenticated && (
-                <div class="col-3">
-                  {/* ADD SESSIONS */}
+              {props.user === campaign.user_id && (
+                <div className="col-5">
+                  {/* EDIT CAMPAiGN BUTTONS */}
                   <Link
-                    to={"/campaigns/" + props.match.params.id + "/session"}
-                    className="btn btn-primary"
+                    to={{
+                      pathname: "/campaign-edit/" + campaign._id,
+                      state: {
+                        currentCampaign: campaign,
+                      },
+                    }}
+                    className="btn btn-info mx-1 mb-1"
                   >
-                    <i class="bi bi-plus"></i>
-                    Add Session
+                    <i class="bi bi-pencil-square"></i>
+                    <h6>Edit Campaign</h6>
                   </Link>
                 </div>
               )}

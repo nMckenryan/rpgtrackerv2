@@ -4,7 +4,6 @@ import { Route, Switch, Link } from "react-router-dom";
 
 import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
-import Login from "./components/Login.js";
 
 import Campaign from "./components/CampaignPage.component";
 import CompileCampaign from "./components/CompileCampaign.component";
@@ -15,20 +14,10 @@ import Auth0ProviderWithHistory from "./auth0Provider";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import LoginButton from "./components/LoginButton.component";
-import LogoutButton from "./components/LogoutButton.component.js";
 
 function App() {
-  // const [user, setUser] = React.useState(null);
-
-  // async function login(user = null) {
-  //   setUser(user);
-  // }
-
-  // async function logout() {
-  //   setUser(null);
-  // }
-
-  const { loginWithRedirect, logout, user, isLoading } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
+    useAuth0();
 
   return (
     <>
@@ -69,26 +58,13 @@ function App() {
                   Login
                 </Link>
               )} */}
-              <LoginButton></LoginButton>
-              <LogoutButton></LogoutButton>
-              <Profile></Profile>
-
-              {!isLoading && !user && (
-                <button
-                  className="btn btn-primary btn-block"
-                  onClick={() => loginWithRedirect}
-                >
-                  Login
-                </button>
-              )}
-
-              {!isLoading && user && (
-                <button
-                  className="btn btn-primary btn-block"
-                  onClick={() => logout()}
-                >
-                  Log Out
-                </button>
+              <Profile />
+              {!user ? (
+                <>
+                  <LoginButton />
+                </>
+              ) : (
+                <Profile />
               )}
             </li>
           </div>
@@ -117,15 +93,9 @@ function App() {
 
             {/* EDIT  CAMPAIGN */}
             <Route
-              path="/campaign-edit/"
+              path="/campaign-edit/:id"
               render={(props) => <CompileCampaign {...props} user={user} />}
             />
-
-            {/* LOGIN */}
-            {/* <Route
-              path="/login"
-              render={(props) => <Login {...props} login={login} />}
-            /> */}
           </Switch>
         </div>
       </Auth0ProviderWithHistory>

@@ -15,19 +15,18 @@ const CompileCampaign = (props) => {
     active: false,
   };
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
-
   let editing = false; //   Verify if Session is being Edited or Created.
   const [startDate, setStartDate] = useState(new Date());
-
-  const [values, setValues] = useState(initialValues);
-  const [submitted, setSubmitted] = useState(false);
 
   //   Enables Edit Mode
   if (props.location.state && props.location.state.currentCampaign) {
     editing = true;
     initialValues = props.location.state.currentCampaign;
   }
+
+  const [values, setValues] = useState(initialValues);
+  const [submitted, setSubmitted] = useState(false);
+  const { user, isAuthenticated } = useAuth0();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,8 +76,8 @@ const CompileCampaign = (props) => {
 
   return (
     <div>
-      {/* Check if Logged in. No edit/creation available if not */}
-      {isAuthenticated && (
+      {/* Checks if Logged in. No edit/creation available if not */}
+      {user ? (
         <div className="submit-form">
           {/* Check if Submitted */}
           {/* TODO: Replace with Toast? */}
@@ -94,97 +93,120 @@ const CompileCampaign = (props) => {
             </div>
           ) : (
             // COMPILE CAMPAIGN
-            <div>
+            <div class="container">
               <div className="form-group">
                 <h2 htmlFor="description">
                   {editing ? "Edit" : "Create"} Campaign
                 </h2>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Campaign Name:
-                    </span>
+                <div class="row">
+                  <div class="col-5">
+                    <div class="input-group mb-3">
+                      {/* CAMPAIGN NAME ENTRY */}
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">
+                          Campaign Name:
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="text"
+                        required
+                        value={values.campaign_name}
+                        onChange={handleInputChange}
+                        name="campaign_name"
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.campaign_name}
-                    onChange={handleInputChange}
-                    name="campaign_name"
-                  />
-                </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Game Master:
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.game_master}
-                    onChange={handleInputChange}
-                    name="game_master"
-                  />
-                </div>
+                  {editing && (
+                    <div class="col-3">
+                      {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value={values.active}
+                          id="flexCheckDefault"
+                          onChange={handleInputChange}
+                          name="active"
+                        />
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Date Started:
-                    </span>
-                  </div>
-                  <DatePicker onChange={setStartDate} value={startDate} />
-                </div>
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Game System:
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.game_system}
-                    onChange={handleInputChange}
-                    name="game_system"
-                  />
-                </div>
-                <div>
-                  {editing ? (
-                    <input
-                      type="radio"
-                      className="form-control"
-                      id="text"
-                      required
-                      value={values.active}
-                      onChange={handleInputChange}
-                      name="active"
-                    />
-                  ) : (
-                    <div></div>
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Active?
+                        </label>
+                      </div>
+                    </div>
                   )}
                 </div>
+
+                <div class="row">
+                  <div class="col-3">
+                    <div class="input-group mb-3">
+                      {/* GM ENTRY */}
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">
+                          Game Master:
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="text"
+                        required
+                        value={values.game_master}
+                        onChange={handleInputChange}
+                        name="game_master"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-3">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        {/* GAME SYSTEM ENTRY */}
+                        <span class="input-group-text" id="basic-addon3">
+                          Game System:
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="text"
+                        required
+                        value={values.game_system}
+                        onChange={handleInputChange}
+                        name="game_system"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  {/* DATE STARTED ENTRY */}
+                  <div class="col-3">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Date Started:</span>
+                      </div>
+                      <DatePicker onChange={setStartDate} value={startDate} />
+                    </div>
+                  </div>
+
+                  <div class="col-3">
+                    <button onClick={saveSession} className="btn btn-success">
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </div>
-              <button onClick={saveSession} className="btn btn-success">
-                Submit
-              </button>
             </div>
           )}
         </div>
+      ) : (
         // TO DO: Enfore Login, notify customer
-        // ) : (
-        //   //   Reroutes to Login page if not logged in
-        //   props.history.push("/login")
+        //   Reroutes to Login page if not logged in
+        props.history.push("/")
       )}
     </div>
   );

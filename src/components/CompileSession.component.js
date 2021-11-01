@@ -14,9 +14,8 @@ const CompileSession = (props) => {
     char_level: "",
   };
 
-  const [calendate, setCalendate] = useState(new Date());
-
   let editing = false; //   Verify if Session is being Edited or Created.
+  const [calendate, setCalendate] = useState(new Date());
 
   //   Enables Edit Mode
   if (props.location.state && props.location.state.currentSession) {
