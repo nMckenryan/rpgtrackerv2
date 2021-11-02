@@ -13,6 +13,7 @@ class CampaignDataService {
   }
 
   find(query, by = "name", page = 0) {
+    console.log("QUERY" + query + "NAME" + by);
     return http.get(`rpgtrackerhook?${by}=${query}&page=${page}`);
   }
 

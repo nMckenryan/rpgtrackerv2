@@ -70,6 +70,24 @@ const Campaign = (props) => {
           </Link>
         </div>
 
+        {isAuthenticated && user.name === campaign.user_id && (
+          <div className="col-5">
+            {/* EDIT CAMPAiGN BUTTONS */}
+            <Link
+              to={{
+                pathname: "/campaign-edit/" + campaign._id,
+                state: {
+                  currentCampaign: campaign,
+                },
+              }}
+              className="btn btn-info mx-1 mb-1"
+            >
+              <i class="bi bi-pencil-square"></i>
+              <h6>Edit Campaign</h6>
+            </Link>
+          </div>
+        )}
+
         {/* DELETE CAMPAIGN BUTTON */}
         <div class="col-1 mb-3">
           <Link
@@ -101,6 +119,7 @@ const Campaign = (props) => {
                 <small class="text-muted">Game Master </small>
               </div>
 
+              {/* CAMPAIGN ACTIVE STATUS */}
               <div class="col-3">
                 {campaign.active ? (
                   <div class="text-center">
@@ -118,33 +137,39 @@ const Campaign = (props) => {
                   </>
                 )}
               </div>
+
+              {/* DATE STARTED */}
+              <div class="col-2">
+                <h3>
+                  {new Date(campaign.date_started.date).toLocaleDateString(
+                    "en-AU"
+                  )}
+                </h3>
+                <small class="text-muted">Start Date </small>
+              </div>
             </div>
 
             <br />
-
-            <div class="row">
-              {props.user === campaign.user_id && (
-                <div className="col-5">
-                  {/* EDIT CAMPAiGN BUTTONS */}
-                  <Link
-                    to={{
-                      pathname: "/campaign-edit/" + campaign._id,
-                      state: {
-                        currentCampaign: campaign,
-                      },
-                    }}
-                    className="btn btn-info mx-1 mb-1"
-                  >
-                    <i class="bi bi-pencil-square"></i>
-                    <h6>Edit Campaign</h6>
-                  </Link>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* SESSION TABLE DISPLAY */}
+
           <div className="row">
+            {/* ADD NEW SESSION BUTTON */}
+            {isAuthenticated && user.name === campaign.user_id && (
+              <div class="col-lg-4 pb-1" key="0">
+                <Link
+                  to={"/campaigns/" + props.match.params.id + "/session"}
+                  class="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center"
+                >
+                  <h4 class="p-10">
+                    <i class="bi bi-pencil-fill"></i>
+                    Add New Session
+                  </h4>
+                </Link>
+              </div>
+            )}
+
             {campaign.sessions.length > 0 ? (
               campaign.sessions.map((session, index) => {
                 return (

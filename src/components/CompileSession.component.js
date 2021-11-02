@@ -56,7 +56,7 @@ const CompileSession = (props) => {
           console.log(response.data);
         })
         .catch((e) => {
-          console.log(e);
+          console.error("Could not Create Session " + e);
         });
 
       // CREATING
@@ -67,7 +67,7 @@ const CompileSession = (props) => {
           console.log(response.data);
         })
         .catch((e) => {
-          console.log(e);
+          console.error("Could not Create Session " + e);
         });
     }
   };
@@ -91,67 +91,73 @@ const CompileSession = (props) => {
             </div>
           ) : (
             // COMPILE SESSION
-            <div>
-              <div className="form-group">
-                <label htmlFor="description">
-                  {editing ? "Edit" : "Create"} Session
-                </label>
-                {/* 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Session Date:
-                    </span>
-                  </div> */}
+            <div class="container">
+              <div class="row justify-content-between">
+                <div class="col-1 mb-3">
+                  <Link to={"/"} className="btn btn-primary" title="Go Back">
+                    <i class="bi bi-arrow-left-circle"></i>
+                  </Link>
+                </div>
 
+                <div className="form-group">
+                  <h2 htmlFor="description">
+                    {editing ? "Edit" : "Create"} Session
+                  </h2>
+                </div>
+              </div>
+
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">
+                    Character Name:
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="text"
+                  required
+                  value={values.char_name}
+                  onChange={handleInputChange}
+                  name="char_name"
+                />
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">
+                    Class & Level:
+                  </span>
+                </div>
+
+                <input
+                  type="text"
+                  className="form-control"
+                  id="text"
+                  required
+                  value={values.char_level}
+                  onChange={handleInputChange}
+                  name="char_level"
+                />
+
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon3">
+                    Date:
+                  </span>
+                </div>
                 <DatePicker onChange={setCalendate} value={calendate} />
+              </div>
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Character Name:
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.char_name}
-                    onChange={handleInputChange}
-                    name="char_name"
-                  />
-
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">
-                      Class & Level:
-                    </span>
-                  </div>
-
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="text"
-                    required
-                    value={values.char_level}
-                    onChange={handleInputChange}
-                    name="char_level"
-                  />
-                </div>
-
-                <div class="input-group">
-                  <span class="input-group-text">Session Log</span>
-                  <textarea
-                    type="text"
-                    className="form-control"
-                    aria-label="With textarea"
-                    id="text"
-                    required
-                    value={values.session_log}
-                    onChange={handleInputChange}
-                    name="session_log"
-                  />
-                </div>
+              <div class="input-group">
+                <span class="input-group-text">Session Log</span>
+                <textarea
+                  type="text"
+                  className="form-control"
+                  aria-label="With textarea"
+                  id="text"
+                  required
+                  value={values.session_log}
+                  onChange={handleInputChange}
+                  name="session_log"
+                />
               </div>
               <button onClick={saveSession} className="btn btn-success">
                 Submit

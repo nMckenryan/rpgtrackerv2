@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SessionList = (props) => {
   const [campaigns, setCampaigns] = useState([]);
-  const [searchName, setSearchName] = useState("");
+  // const [searchName, setSearchName] = useState("");
   const [searchSystem, setSearchSystem] = useState("");
   const [systems, setSystems] = useState(["All Systems"]);
+
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     retrieveCampaigns();
     retrieveSystems();
   }, []);
 
-  const onChangeSearchName = (e) => {
-    const searchName = e.target.value;
-    setSearchName(searchName);
-  };
+  // const onChangeSearchName = (e) => {
+  //   const searchName = e.target.value;
+  //   setSearchName(searchName);
+  // };
+
+  // const findByName = () => {
+  //   find(searchName, "name");
+  // };
 
   const onChangeSearchSystem = (e) => {
     const searchSystem = e.target.value;
+    console.log(e);
     setSearchSystem(searchSystem);
   };
 
   const retrieveCampaigns = () => {
     CampaignDataService.getAll()
       .then((response) => {
-        console.log(response.data);
         setCampaigns(response.data.campaigns);
       })
       .catch((e) => {
@@ -34,14 +41,14 @@ const SessionList = (props) => {
       });
   };
 
+  //Getting Systems for System Sort Menu
   const retrieveSystems = () => {
     CampaignDataService.getSystems()
       .then((response) => {
-        console.log(response.data);
         setSystems(["All Systems"].concat(response.data));
       })
       .catch((e) => {
-        console.log(e);
+        console.error("Could not retrieve Systems: " + e);
       });
   };
 
@@ -52,32 +59,30 @@ const SessionList = (props) => {
   const find = (query, by) => {
     CampaignDataService.find(query, by)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setCampaigns(response.data.campaigns);
       })
       .catch((e) => {
-        console.log(e);
+        console.error("Not Found" + e);
       });
-  };
-
-  const findByName = () => {
-    find(searchName, "name");
   };
 
   const findBySystem = () => {
     if (searchSystem === "All Systems") {
       refreshList();
     } else {
-      find(searchSystem, "cuisine");
+      find(searchSystem, "game_system");
     }
   };
 
   return (
     <>
-      <div className="row pb-1">
+      {/* SEARCH BAR */}
+      {/* TODO: Get Functional */}
+      {/* <div className="row pb-1"> 
+        
+
         <div className="input-group col-lg-4">
-          {/* SEARCH BAR */}
-          {/* TODO: Make searchable by anything */}
           <input
             type="text"
             className="form-control"
@@ -94,14 +99,14 @@ const SessionList = (props) => {
               Search
             </button>
           </div>
-        </div>
+        </div> */}
 
-        {/* SORT BY CAMPAIGN (LARGEST?) */}
-        {/* TODO: Sort by largest campaign */}
-        <div className="input-group col-lg-4">
+      {/* SORT BAR */}
+      {/* TODO: Repair */}
+      {/* <div className="input-group col-lg-4">
           <select onChange={onChangeSearchSystem}>
-            {systems.map((cuisine) => {
-              return <option value={cuisine}> {cuisine.substr(0, 20)} </option>;
+            {systems.map((sys) => {
+              return <option value={sys}> {sys.substr(0, 20)} </option>;
             })}
           </select>
           <div className="input-group-append">
@@ -113,8 +118,8 @@ const SessionList = (props) => {
               Sort
             </button>
           </div>
-        </div>
-      </div>
+        </div> 
+      </div>*/}
 
       {/* RESULTS GRID */}
       <div className="row">
@@ -159,12 +164,12 @@ const SessionList = (props) => {
                       </Link>
                     </div>
 
-                    {props.user === camp.user_id && (
+                    {isAuthenticated && user.name === camp.user_id && (
                       <div className="col-5">
                         {/* EDIT CAMPAiGN BUTTONS */}
                         <Link
                           to={{
-                            pathname: "/campaigns/" + camp._id,
+                            pathname: "/campaign-edit/" + camp._id,
                             state: {
                               currentCampaign: camp,
                             },
@@ -172,7 +177,7 @@ const SessionList = (props) => {
                           className="btn btn-info mx-1 mb-1"
                         >
                           <i class="bi bi-pencil-square"></i>
-                          <h6>Edit Session</h6>
+                          <h6>Edit Campaign</h6>
                         </Link>
                       </div>
                     )}
