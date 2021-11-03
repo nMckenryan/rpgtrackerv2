@@ -10,19 +10,21 @@ import CompileCampaign from "./components/CompileCampaign.component";
 import Profile from "./components/Profile.component";
 
 import "react-toastify/dist/ReactToastify.css";
-import Auth0ProviderWithHistory from "./auth0Provider";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 import LoginButton from "./components/LoginButton.component";
+import Auth0ProviderWithHistory from "./auth0Provider";
 
-function App() {
+const App = () => {
   const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
     useAuth0();
 
   return (
-    <>
-      <Auth0ProviderWithHistory>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <>
+        {/* NAV BAR */}
+        {/* Create Campaign Link */}
+        <nav className="navbar navbar-dark bg-dark  mr-auto">
           <a class="navbar-brand" href="/campaigns">
             <img
               src="/vikinglogo.png"
@@ -33,41 +35,22 @@ function App() {
             />
             Dungeon Tracker
           </a>
-
-          {/* NAV BAR */}
-          <div className="navbar-nav mr-auto">
-            {/* Create Campaign Link */}
+          <ul class="navbar-nav">
             <li className="nav-item">
               <Link to={"/campaign-new"} className="nav-link">
                 <i class="bi bi-pencil-fill"></i> New Campaign
               </Link>
             </li>
-            <li className="nav-item">
-              {/* {user ? ( 
-                <a
-                  onClick={logout}
-                  className="nav-link"
-                  style={{ cursor: "pointer" }}
-                >
-                  <i class="bi bi-door-closed-fill"></i>
-                  Logout {user.name}
-                </a>
-              ) : (
-                <Link to={"/login"} className="nav-link">
-                  <i class="bi bi-door-open"></i>
-                  Login
-                </Link>
-              )} */}
-              <Profile />
-              {!user ? (
-                <>
-                  <LoginButton />
-                </>
-              ) : (
-                <Profile />
-              )}
-            </li>
-          </div>
+          </ul>
+           <span className="nav-item">
+
+            {!isLoading && !user && (
+              <LoginButton></LoginButton>
+            )}
+             {!isLoading && user && (
+              <Profile></Profile>
+             )}
+          </span> 
         </nav>
 
         {/* MAIN SECTION / ROUTER */}
@@ -98,9 +81,8 @@ function App() {
             />
           </Switch>
         </div>
-      </Auth0ProviderWithHistory>
-    </>
+        </>
   );
-}
+};
 
 export default App;

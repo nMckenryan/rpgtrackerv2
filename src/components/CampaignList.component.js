@@ -9,7 +9,7 @@ const SessionList = (props) => {
   const [searchSystem, setSearchSystem] = useState("");
   const [systems, setSystems] = useState(["All Systems"]);
 
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithPopup } = useAuth0();
 
   useEffect(() => {
     retrieveCampaigns();
@@ -124,71 +124,85 @@ const SessionList = (props) => {
       {/* RESULTS GRID */}
       <div className="row">
         {campaigns.map((camp) => {
-          console.log(camp);
           return (
-            <div className="col-lg-4 pb-1">
-              <div className="card">
-                {/* CAMPAIGN CARD BOX */}
-                <div className="card-header">
-                  <h3>
-                    {camp.campaign_name + " "}
-                    {camp.active ? (
-                      <i class="bi bi-check-circle-fill"></i>
-                    ) : (
-                      <i class="bi bi-x-circle-fill"></i>
-                    )}
-                  </h3>
-                </div>
-
-                <div className="card-body">
-                  <div className="row justify-content-around">
-                    <div className="col">
-                      <h6 className="card-text">{camp.game_system}</h6>
-                      <small class="text-muted">Game System</small>
-                    </div>
-                    <div className="col">
-                      <h6 className="card-text">{camp.game_master}</h6>
-                      <small class="text-muted">Game Master</small>
-                    </div>
-                  </div>
-                  <br />
-
-                  <div className="row justify-content-around">
-                    <div className="col-5">
-                      <Link
-                        to={"/campaigns/" + camp._id}
-                        className="btn btn-primary mx-1 mb-1"
-                      >
-                        <i class="bi bi-eyeglasses"></i>
-                        <h6>View Sessions</h6>
-                      </Link>
+            <>
+              {isAuthenticated && user.name === camp.user_id && (
+                <div className="col-lg-4 pb-1">
+                  <div className="card">
+                    {/* CAMPAIGN CARD BOX */}
+                    <div className="card-header">
+                      <h3>
+                        {camp.campaign_name + " "}
+                        {camp.active ? (
+                          <i class="bi bi-check-circle-fill"></i>
+                        ) : (
+                          <i class="bi bi-x-circle-fill"></i>
+                        )}
+                      </h3>
                     </div>
 
-                    {isAuthenticated && user.name === camp.user_id && (
-                      <div className="col-5">
-                        {/* EDIT CAMPAiGN BUTTONS */}
-                        <Link
-                          to={{
-                            pathname: "/campaign-edit/" + camp._id,
-                            state: {
-                              currentCampaign: camp,
-                            },
-                          }}
-                          className="btn btn-info mx-1 mb-1"
-                        >
-                          <i class="bi bi-pencil-square"></i>
-                          <h6>Edit Campaign</h6>
-                        </Link>
+                    <div className="card-body">
+                      <div className="row justify-content-around">
+                        <div className="col">
+                          <h6 className="card-text">{camp.game_system}</h6>
+                          <small class="text-muted">Game System</small>
+                        </div>
+                        <div className="col">
+                          <h6 className="card-text">{camp.game_master}</h6>
+                          <small class="text-muted">Game Master</small>
+                        </div>
                       </div>
-                    )}
+                      <br />
+
+                      <div className="row justify-content-around">
+                        <div className="col-5">
+                          <Link
+                            to={"/campaigns/" + camp._id}
+                            className="btn btn-primary mx-1 mb-1"
+                          >
+                            <i class="bi bi-eyeglasses"></i>
+                            <h6>View Sessions</h6>
+                          </Link>
+                        </div>
+
+                        <div className="col-5">
+                          {/* EDIT CAMPAiGN BUTTONS */}
+                          <Link
+                            to={{
+                              pathname: "/campaign-edit/" + camp._id,
+                              state: {
+                                currentCampaign: camp,
+                              },
+                            }}
+                            className="btn btn-info mx-1 mb-1"
+                          >
+                            <i class="bi bi-pencil-square"></i>
+                            <h6>Edit Campaign</h6>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              )}
+            </>
           );
         })}
       </div>
-    </>
+
+    {!isAuthenticated && (
+      <div class="col flex mx-auto pb-1" key="0">
+        <button onClick={() => loginWithPopup()}
+          class="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center"
+        >
+          <h4 class="p-10">
+            <i class="bi bi-pencil-fill"></i>
+            Login to Add a Campaign!
+          </h4>
+        </button>
+      </div>
+    )}
+        </>
   );
 };
 

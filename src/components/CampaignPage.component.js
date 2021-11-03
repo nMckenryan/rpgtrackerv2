@@ -174,14 +174,15 @@ const Campaign = (props) => {
               campaign.sessions.map((session, index) => {
                 return (
                   <div className="col-lg-4 pb-1" key={index}>
-                    <div className="card">
+                    <div className="card bg-light mb-3">
+                      <h5 class="card-header text-center">
+                        {session.char_name}-{session.char_level}
+                      </h5>
                       <div className="card-body">
                         <p className="card-text">
-                          <strong>User: </strong>
-                          {session.char_name}
+                          <strong>Player: </strong>
+                          {session.user_id}
                           <br />
-                          <strong>Level: </strong>
-                          {session.char_level.toString()}
                           <strong>Date: </strong>
                           {Date.parse(session.session_date)}
                           <br />
@@ -190,7 +191,7 @@ const Campaign = (props) => {
                         </p>
 
                         {isAuthenticated && user.name === session.user_id && (
-                          <div className="row">
+                          <div class="card-footer row">
                             {/* EDIT SESSION  BUTTONS */}
                             <Link
                               to={{
@@ -202,19 +203,19 @@ const Campaign = (props) => {
                                   currentSession: session,
                                 },
                               }}
-                              className="btn btn-info col-lg-5 mx-1 mb-1"
+                              className="btn btn-info btn-sm col"
                             >
                               <i class="bi bi-pencil-square"></i>
-                              <h6>Edit Session</h6>
+                              View/Edit Session
                             </Link>
 
                             {/* DELETE SESSION BUTTON */}
                             <button
-                              className="btn btn-danger col-lg-5 mx-1 mb-1"
+                              className="btn btn-danger btn-sm col"
                               onClick={() => deleteSession(session._id, index)}
                             >
                               <i class="bi bi-trash"></i>
-                              <h6>Delete Session</h6>
+                              Delete Session
                             </button>
                           </div>
                         )}
