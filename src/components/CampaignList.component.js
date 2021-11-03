@@ -177,7 +177,7 @@ const SessionList = (props) => {
                             className="btn btn-info mx-1 mb-1"
                           >
                             <i class="bi bi-pencil-square"></i>
-                            <h6>Edit Campaign</h6>
+                            Edit Campaign
                           </Link>
                         </div>
                       </div>
@@ -188,21 +188,26 @@ const SessionList = (props) => {
             </>
           );
         })}
-      </div>
 
-    {!isAuthenticated && (
-      <div class="col flex mx-auto pb-1" key="0">
-        <button onClick={() => loginWithPopup()}
-          class="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center"
-        >
-          <h4 class="p-10">
-            <i class="bi bi-pencil-fill"></i>
-            Login to Add a Campaign!
-          </h4>
-        </button>
+          <div className="col-lg-4 pb-1">
+
+            <Link to={"/campaign-new"} className="btn btn-dark">
+                
+              
+              <div className="card bg-light mb-3">
+                <div className="card-body">
+                  <h4 class="p-10">
+                    <i class="bi bi-pencil-fill"></i>
+                    {isAuthenticated ? 
+                    "Add Campaign" : "Login to Add a Campaign"}
+                    
+                  </h4>
+                </div>
+              </div>
+            </Link>
+          </div>
       </div>
-    )}
-        </>
+    </>
   );
 };
 

@@ -80,10 +80,10 @@ const Campaign = (props) => {
                   currentCampaign: campaign,
                 },
               }}
-              className="btn btn-info mx-1 mb-1"
+              className="btn btn-info btn-sm col"
             >
               <i class="bi bi-pencil-square"></i>
-              <h6>Edit Campaign</h6>
+              
             </Link>
           </div>
         )}

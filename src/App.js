@@ -7,14 +7,11 @@ import CompileSession from "./components/CompileSession.component";
 
 import Campaign from "./components/CampaignPage.component";
 import CompileCampaign from "./components/CompileCampaign.component";
-import Profile from "./components/Profile.component";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Auth0Provider } from "@auth0/auth0-react";
 
 import LoginButton from "./components/LoginButton.component";
-import Auth0ProviderWithHistory from "./auth0Provider";
 
 const App = () => {
   const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
@@ -23,7 +20,6 @@ const App = () => {
   return (
       <>
         {/* NAV BAR */}
-        {/* Create Campaign Link */}
         <nav className="navbar navbar-dark bg-dark  mr-auto">
           <a class="navbar-brand" href="/campaigns">
             <img
@@ -35,20 +31,25 @@ const App = () => {
             />
             Dungeon Tracker
           </a>
-          <ul class="navbar-nav">
-            <li className="nav-item">
-              <Link to={"/campaign-new"} className="nav-link">
-                <i class="bi bi-pencil-fill"></i> New Campaign
-              </Link>
-            </li>
-          </ul>
+
            <span className="nav-item">
 
             {!isLoading && !user && (
               <LoginButton></LoginButton>
             )}
              {!isLoading && user && (
-              <Profile></Profile>
+               <>
+                <div class="d-flex">
+                  <img src={user.picture} alt={user.name} width="50" height="50" />
+                  <div>
+                    <h6>{user.name}</h6>
+                    <small>{user.email}</small>
+
+                  </div>                    <button onClick={() => logout({ returnTo: window.location.origin })}>
+                      Log Out
+                    </button>
+                </div>
+                </>
              )}
           </span> 
         </nav>
