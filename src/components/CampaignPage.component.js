@@ -61,8 +61,8 @@ const Campaign = (props) => {
 
   // CLIENT VIEW
   return (
-    <>
-      <div class="row justify-content-between">
+    <div class="card">
+      <div class="row justify-content-between ">
         {/* BACK BUTTON */}
         <div class="col-1 mb-3">
           <Link to={"/"} className="btn btn-primary" title="Go Back">
@@ -71,7 +71,7 @@ const Campaign = (props) => {
         </div>
 
         {isAuthenticated && user.name === campaign.user_id && (
-          <div className="col-5">
+          <div className="col-5 text-center">
             {/* EDIT CAMPAiGN BUTTONS */}
             <Link
               to={{
@@ -80,7 +80,7 @@ const Campaign = (props) => {
                   currentCampaign: campaign,
                 },
               }}
-              className="btn btn-info btn-sm col"
+              className="btn btn-info col"
             >
               <i class="bi bi-pencil-square"></i>
               
@@ -101,50 +101,50 @@ const Campaign = (props) => {
       </div>
       {/* CAMPAIGN DETAILS */}
       {campaign ? (
-        <div>
+        <div class="text-white">
           <div class="container">
             <div class="row">
               <div class="col">
-                <h3 className="text-uppercase">{campaign.campaign_name}</h3>
+                <h4 className="text-uppercase">{campaign.campaign_name}</h4>
                 <small class="text-muted">Campaign Name</small>
               </div>
 
-              <div class="col-2">
-                <h3>{campaign.game_system}</h3>
+              <div class="col">
+                <h4>{campaign.game_system}</h4>
                 <small class="text-muted">Game System</small>
               </div>
 
-              <div class="col-2">
-                <h3>{campaign.game_master} </h3>
+              <div class="col">
+                <h4>{campaign.game_master} </h4>
                 <small class="text-muted">Game Master </small>
               </div>
 
               {/* CAMPAIGN ACTIVE STATUS */}
-              <div class="col-3">
+              <div class="col">
                 {campaign.active ? (
                   <div class="text-center">
-                    <h3>
+                    <h4>
                       <i class="bi bi-check-circle-fill"></i>
-                    </h3>
+                    </h4>
                     <small class="text-muted">Campaign Active</small>
                   </div>
                 ) : (
                   <>
-                    <h3 class="text-center">
+                    <h4 class="text-center">
                       <i class="bi bi-x-circle-fill"></i>
-                    </h3>
+                    </h4>
                     <small class="text-muted">Campaign Inactive</small>
                   </>
                 )}
               </div>
 
               {/* DATE STARTED */}
-              <div class="col-2">
-                <h3>
+              <div class="col">
+                <h4 class="">
                   {new Date(campaign.date_started.date).toLocaleDateString(
                     "en-AU"
                   )}
-                </h3>
+                </h4>
                 <small class="text-muted">Start Date </small>
               </div>
             </div>
@@ -174,7 +174,7 @@ const Campaign = (props) => {
               campaign.sessions.map((session, index) => {
                 return (
                   <div className="col-lg-4 pb-1" key={index}>
-                    <div className="card bg-light mb-3">
+                    <div className="card bg-dark mb-3">
                       <h5 class="card-header text-center">
                         {session.char_name}-{session.char_level}
                       </h5>
@@ -239,7 +239,7 @@ const Campaign = (props) => {
           <p>No campaign selected.</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

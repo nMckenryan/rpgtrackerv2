@@ -95,7 +95,7 @@ const CompileCampaign = (props) => {
           ) : (
             // COMPILE CAMPAIGN
             <div class="container">
-              <div className="form-group">
+              <div className="form-group text-white bg-dark card">
                 <div class="row justify-content-between">
                   {/* BACK BUTTON */}
                   <div class="col">
@@ -103,7 +103,7 @@ const CompileCampaign = (props) => {
                       <i class="bi bi-arrow-left-circle"></i>
                     </Link>
                   </div>
-                  <h2 htmlFor="description" class="col">
+                  <h2 htmlFor="description" class="col text-center">
                     {editing ? "Edit" : "Create"} Campaign
                   </h2>
                   {editing && (

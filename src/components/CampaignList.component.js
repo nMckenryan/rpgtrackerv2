@@ -9,7 +9,7 @@ const SessionList = (props) => {
   const [searchSystem, setSearchSystem] = useState("");
   const [systems, setSystems] = useState(["All Systems"]);
 
-  const { user, isAuthenticated, loginWithPopup } = useAuth0();
+  const { user, isAuthenticated, loginWithPopup, isLoading } = useAuth0();
 
   useEffect(() => {
     retrieveCampaigns();
@@ -122,13 +122,13 @@ const SessionList = (props) => {
       </div>*/}
 
       {/* RESULTS GRID */}
-      <div className="row">
+      <div className="row justify-content-center text-white">
         {campaigns.map((camp) => {
           return (
             <>
               {isAuthenticated && user.name === camp.user_id && (
                 <div className="col-lg-4 pb-1">
-                  <div className="card">
+                  <div className="card  bg-dark text-white">
                     {/* CAMPAIGN CARD BOX */}
                     <div className="card-header">
                       <h3>
@@ -158,10 +158,10 @@ const SessionList = (props) => {
                         <div className="col-5">
                           <Link
                             to={"/campaigns/" + camp._id}
-                            className="btn btn-primary mx-1 mb-1"
+                            className="btn btn-primary btn-sm mx-1 mb-1"
                           >
-                            <i class="bi bi-eyeglasses"></i>
-                            <h6>View Sessions</h6>
+                            <i class="bi bi-eyeglasses"></i><br/>
+                            View Sessions
                           </Link>
                         </div>
 
@@ -174,10 +174,10 @@ const SessionList = (props) => {
                                 currentCampaign: camp,
                               },
                             }}
-                            className="btn btn-info mx-1 mb-1"
+                            className="btn btn-info btn-sm mx-1 mb-1"
                           >
-                            <i class="bi bi-pencil-square"></i>
-                            Edit Campaign
+                            <i class="bi bi-pencil-square"></i> <br/>
+                             Edit Campaign
                           </Link>
                         </div>
                       </div>
@@ -188,24 +188,19 @@ const SessionList = (props) => {
             </>
           );
         })}
-
-          <div className="col-lg-4 pb-1">
-
-            <Link to={"/campaign-new"} className="btn btn-dark">
-                
-              
-              <div className="card bg-light mb-3">
-                <div className="card-body">
-                  <h4 class="p-10">
+        {isLoading ?(
+          <h2 class="text-center">Loading...</h2>
+        ) : (
+          <div className="col-lg-4">
+            <Link to={"/campaign-new"} className="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center">
+                  <h4>
                     <i class="bi bi-pencil-fill"></i>
                     {isAuthenticated ? 
                     "Add Campaign" : "Login to Add a Campaign"}
-                    
                   </h4>
-                </div>
-              </div>
             </Link>
           </div>
+          )}
       </div>
     </>
   );
