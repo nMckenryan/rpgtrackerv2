@@ -62,11 +62,11 @@ const Campaign = (props) => {
 
   const deleteConfirmation = () => {
     try {
-    <ConfirmationModal title="WARNING"></ConfirmationModal>
-    } catch(e) {
-      console.error("Could not launch Campaign Delete Confirmation Modal" + e)
+      <ConfirmationModal title="WARNING"></ConfirmationModal>;
+    } catch (e) {
+      console.error("Could not launch Campaign Delete Confirmation Modal" + e);
     }
-  }
+  };
 
   // CLIENT VIEW
   return (
@@ -92,7 +92,6 @@ const Campaign = (props) => {
               className="btn btn-info col"
             >
               <i class="bi bi-pencil-square"></i>
-              
             </Link>
           </div>
         )}
@@ -151,9 +150,7 @@ const Campaign = (props) => {
               {/* DATE STARTED */}
               <div class="col">
                 <h4 class="">
-                  {new Date(campaign.date_started).toLocaleDateString(
-                    "en-AU"
-                  )}
+                  {new Date(campaign.date_started).toLocaleDateString("en-AU")}
                 </h4>
                 <small class="text-muted">Start Date </small>
               </div>
@@ -196,8 +193,8 @@ const Campaign = (props) => {
                           <br />
                           <strong>Date: </strong>
                           {new Date(session.session_date).toLocaleDateString(
-                    "en-AU"
-                  )}
+                            "en-AU"
+                          )}
                           <br />
                           <strong>Session Log: </strong>
                           <p>{trimSession(session.session_log)}</p>
