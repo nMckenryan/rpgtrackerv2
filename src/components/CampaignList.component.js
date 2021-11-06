@@ -118,8 +118,8 @@ const SessionList = (props) => {
               Sort
             </button>
           </div>
-        </div> 
-      </div>*/}
+        </div>  */}
+
 
       {/* RESULTS GRID */}
       <div className="row justify-content-center text-white">
@@ -127,8 +127,8 @@ const SessionList = (props) => {
           return (
             <>
               {isAuthenticated && user.name === camp.user_id && (
-                <div className="col-lg-4 pb-1">
-                  <div className="card  bg-dark text-white">
+                <div className="col-lg-4 pb-3">
+                  <div className="card h-100 bg-dark text-white">
                     {/* CAMPAIGN CARD BOX */}
                     <div className="card-header">
                       <h3>
@@ -141,7 +141,7 @@ const SessionList = (props) => {
                       </h3>
                     </div>
 
-                    <div className="card-body">
+                    <div className="card-body d-flex flex-column">
                       <div className="row justify-content-around">
                         <div className="col">
                           <h6 className="card-text">{camp.game_system}</h6>
@@ -154,7 +154,7 @@ const SessionList = (props) => {
                       </div>
                       <br />
 
-                      <div className="row justify-content-around">
+                      <div className="row justify-content-around mt-auto">
                         <div className="col-5">
                           <Link
                             to={"/campaigns/" + camp._id}
@@ -192,13 +192,21 @@ const SessionList = (props) => {
           <h2 class="text-center">Loading...</h2>
         ) : (
           <div className="col-lg-4">
-            <Link to={"/campaign-new"} className="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center">
-                  <h4>
-                    <i class="bi bi-pencil-fill"></i>
-                    {isAuthenticated ? 
-                    "Add Campaign" : "Login to Add a Campaign"}
-                  </h4>
-            </Link>
+          {isAuthenticated ? (
+              <Link to={"/campaign-new"} className="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center">
+                    <h4>
+                      <i class="bi bi-pencil-fill"></i>
+                      Add Campaign
+                    </h4>
+              </Link>
+          ) : (
+            <button onClick={loginWithPopup} className="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center">
+            <h4>
+              <i class="bi bi-pencil-fill"></i>
+              Login to Add Campaigns
+            </h4>
+      </button>
+          )}
           </div>
           )}
       </div>

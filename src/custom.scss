@@ -1,93 +1,31 @@
-@import "node_modules/bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@500&display=swap");
+// Override default variables before the import
+// you can open the bootstrap.scss module and check any available variables.
+$primary: red;
+$secondary: #8f5325;
+$success: #3e8d63;
+$info: #7854e4;
+$warning: #b8c924;
+$danger: #d62518;
+$light: #f8f9fa;
+$dark: #343a40;
 
-$flame: #ff8757;
-$torchlight: #a88b55;
-$cork: #a58852;
-$steel: #969696;
-$leather: #754747b4;
-$brass: #5a2a02;
+//custom color to be mapped
+$accent : #da6d25;
 
-html,
-body {
-  background: linear-gradient(
-    rgb(22, 22, 22) 0.1%,
-    #727272 70%,
-    $torchlight 90%,
-    $flame 100%
-  );
+// this is used to map colors. change accordingly.
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
+// add any additional color below
+  accent: $accent,
+// now bg-accent,btn-accent,etc.. can be called
+);
 
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  font-family: "Cormorant", serif;
-
-  h1 {
-    color: $steel;
-    font-family: "Cinzel", serif;
-    text-shadow: 2px 2px maroon;
-  }
-
-  h3 {
-    font-family: "Cinzel", serif;
-  }
-
-  h6 {
-    font-weight: bold;
-  }
-
-  .mainSection {
-    background-color: $leather;
-    font-family: "Cormorant", serif;
-    border-radius: 0.5rem;
-    border: 0.05rem solid transparent;
-
-    tbody {
-      font-family: "Kalam", cursive;
-      font-weight: bold;
-      color: rgba(0, 0, 0, 0.856);
-      background-color: $cork;
-    }
-
-    thead {
-      background-color: $leather;
-      color: antiquewhite;
-    }
-
-    td button {
-      font-family: "Cormorant", serif;
-      background-color: $leather;
-      color: rgb(177, 164, 147);
-      width: 55px;
-    }
-  }
-
-  .activeWindow {
-    padding-left: 10px;
-    color: antiquewhite;
-
-    .btn {
-      background-color: $cork;
-      color: black;
-      font-weight: bold;
-    }
-  }
-
-  a {
-    background-color: $brass;
-    color: #fff;
-  }
-  a:hover {
-    color: red;
-  }
-
-  footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem; /* Footer height */
-  }
-}
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

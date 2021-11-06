@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import ConfirmationModal from "./ConfirmationModal.component";
 
 // VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions
 
@@ -59,12 +60,20 @@ const Campaign = (props) => {
     }
   };
 
+  const deleteConfirmation = () => {
+    try {
+    <ConfirmationModal title="WARNING"></ConfirmationModal>
+    } catch(e) {
+      console.error("Could not launch Campaign Delete Confirmation Modal" + e)
+    }
+  }
+
   // CLIENT VIEW
   return (
-    <div class="card">
-      <div class="row justify-content-between ">
+    <div class="card bg-dark ">
+      <div class="d-flex justify-content-between mb-4">
         {/* BACK BUTTON */}
-        <div class="col-1 mb-3">
+        <div class="col-1">
           <Link to={"/"} className="btn btn-primary" title="Go Back">
             <i class="bi bi-arrow-left-circle"></i>
           </Link>
@@ -89,16 +98,17 @@ const Campaign = (props) => {
         )}
 
         {/* DELETE CAMPAIGN BUTTON */}
-        <div class="col-1 mb-3">
-          <Link
-            to={"/"}
+        <div class="col-1 text-center">
+          <button
+            onClick={deleteConfirmation}
             className="btn btn-danger"
             title="Delete your Campaign?"
           >
             <i class="bi bi-trash"></i>
-          </Link>
+          </button>
         </div>
       </div>
+
       {/* CAMPAIGN DETAILS */}
       {campaign ? (
         <div class="text-white">
@@ -160,7 +170,7 @@ const Campaign = (props) => {
               <div class="col-lg-4 pb-1" key="0">
                 <Link
                   to={"/campaigns/" + props.match.params.id + "/session"}
-                  class="btn btn-dark h-100 w-100 d-flex justify-content-center align-items-center"
+                  class="btn btn-secondary h-100 w-100 d-flex justify-content-center align-items-center"
                 >
                   <h4 class="p-10">
                     <i class="bi bi-pencil-fill"></i>
@@ -170,11 +180,12 @@ const Campaign = (props) => {
               </div>
             )}
 
+            {/* INDIVIDUAL SESSION CARDS */}
             {campaign.sessions.length > 0 ? (
               campaign.sessions.map((session, index) => {
                 return (
                   <div className="col-lg-4 pb-1" key={index}>
-                    <div className="card bg-dark mb-3">
+                    <div className="card bg-secondary ">
                       <h5 class="card-header text-center">
                         {session.char_name}-{session.char_level}
                       </h5>
