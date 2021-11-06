@@ -151,7 +151,7 @@ const Campaign = (props) => {
               {/* DATE STARTED */}
               <div class="col">
                 <h4 class="">
-                  {new Date(campaign.date_started.date).toLocaleDateString(
+                  {new Date(campaign.date_started).toLocaleDateString(
                     "en-AU"
                   )}
                 </h4>
@@ -195,7 +195,9 @@ const Campaign = (props) => {
                           {session.user_id}
                           <br />
                           <strong>Date: </strong>
-                          {Date.parse(session.session_date)}
+                          {new Date(session.session_date).toLocaleDateString(
+                    "en-AU"
+                  )}
                           <br />
                           <strong>Session Log: </strong>
                           <p>{trimSession(session.session_log)}</p>
