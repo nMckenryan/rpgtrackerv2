@@ -79,121 +79,117 @@ const CompileCampaign = (props) => {
       {/* Checks if Logged in. No edit/creation available if not */}
       {user ? (
         <div className="submit-form">
-          {/* ON SUCCESSFUL SUBMIT  */}
-          {/* TODO: Replace with Toast? */}
-          {/* TODO: Returns undefined... Fix */}
-          {submitted ? (
-            <div>
-              <h4>You submitted successfully!</h4>
-              <Link
-                to={"/campaigns/" + props.match.params.campaign_id}
-                className="btn btn-success"
-              >
-                Back to Campaign
-              </Link>
-            </div>
-          ) : (
-            // COMPILE CAMPAIGN
-            <div class="container">
-              <div className="form-group text-white bg-dark card">
-                <div class="row justify-content-between">
-                  {/* BACK BUTTON */}
+          <div class="container">
+            {/* // COMPILE CAMPAIGN */}
+            <div className="form-group text-white bg-dark card">
+              <div class="row justify-content-between">
+                {/* BACK BUTTON */}
+                <div class="col">
+                  <Link to={"/"} className="btn btn-primary" title="Go Back">
+                    <i class="bi bi-arrow-left-circle"></i>
+                  </Link>
+                </div>
+                <h2 htmlFor="description" class="col text-center">
+                  {editing ? "Edit" : "Create"} Campaign
+                </h2>
+                {editing && (
                   <div class="col">
-                    <Link to={"/"} className="btn btn-primary" title="Go Back">
-                      <i class="bi bi-arrow-left-circle"></i>
-                    </Link>
+                    {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
+                    <div class="form-check">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Active?
+                      </label>
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value={values.active}
+                        id="flexCheckDefault"
+                        onChange={handleInputChange}
+                        name="active"
+                      />
+                    </div>
                   </div>
-                  <h2 htmlFor="description" class="col text-center">
-                    {editing ? "Edit" : "Create"} Campaign
-                  </h2>
-                  {editing && (
-                    <div class="col">
-                      {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
-                      <div class="form-check">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Active?
-                        </label>
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value={values.active}
-                          id="flexCheckDefault"
-                          onChange={handleInputChange}
-                          name="active"
-                        />
+                )}
+              </div>
+
+              {/* CAMPAIGN NAME ENTRY */}
+              <div class="row">
+                <div class="col-4">
+                  <label for="campaignName" id="basic-addon3">
+                    Campaign Name:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.campaign_name}
+                    onChange={handleInputChange}
+                    name="campaign_name"
+                  />
+                </div>
+
+                {/* GAME SYSTEM ENTRY */}
+                <div class="col-4">
+                  <label for="campaignName" id="basic-addon3">
+                    Game System:
+                  </label>
+
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.game_system}
+                    onChange={handleInputChange}
+                    name="game_system"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                {/* GM ENTRY */}
+                <div class="col-4">
+                  <label for="campaignName" id="basic-addon3">
+                    Game Master:
+                  </label>
+
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.game_master}
+                    onChange={handleInputChange}
+                    name="game_master"
+                  />
+
+                  {/* DATE STARTED ENTRY */}
+                  <div class="col">
+                    <DatePicker onChange={setStartDate} value={startDate} />
+
+                    <button onClick={saveCampaign} className="btn btn-success">
+                      Submit
+                    </button>
+
+                    {/* ON SUCCESSFUL SUBMIT  */}
+                    {/* TODO: Replace with Toast? */}
+                    {submitted && (
+                      <div>
+                        <p>You submitted successfully!</p>
+                        {editing
+                          ? props.history.push(
+                              "/campaigns/" +
+                                props.location.state.currentCampaign._id
+                            )
+                          : props.history.push("/")}
                       </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* CAMPAIGN NAME ENTRY */}
-                <div class="row">
-                  <div class="col-4">
-                    <label for="campaignName" id="basic-addon3">
-                      Campaign Name:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="text"
-                      required
-                      value={values.campaign_name}
-                      onChange={handleInputChange}
-                      name="campaign_name"
-                    />
-                  </div>
-
-                  {/* GAME SYSTEM ENTRY */}
-                  <div class="col-4">
-                    <label for="campaignName" id="basic-addon3">
-                      Game System:
-                    </label>
-
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="text"
-                      required
-                      value={values.game_system}
-                      onChange={handleInputChange}
-                      name="game_system"
-                    />
-                  </div>
-                </div>
-
-                <div class="row">
-                  {/* GM ENTRY */}
-                  <div class="col-4">
-                    <label for="campaignName" id="basic-addon3">
-                      Game Master:
-                    </label>
-
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="text"
-                      required
-                      value={values.game_master}
-                      onChange={handleInputChange}
-                      name="game_master"
-                    />
-
-                    {/* DATE STARTED ENTRY */}
-                    <div class="col">
-                      <DatePicker onChange={setStartDate} value={startDate} />
-
-                      <button
-                        onClick={saveCampaign}
-                        className="btn btn-success"
-                      >
-                        Submit
-                      </button>
-                    </div>
-                    
+                    )}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           )}
         </div>
       ) : (
