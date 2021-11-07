@@ -75,7 +75,7 @@ const CompileCampaign = (props) => {
   };
 
   return (
-    <div>
+    <div class="card bg-dark text-white p-4">
       {/* Checks if Logged in. No edit/creation available if not */}
       {user ? (
         <div className="submit-form">
@@ -113,7 +113,7 @@ const CompileCampaign = (props) => {
               </div>
 
               {/* CAMPAIGN NAME ENTRY */}
-              <div class="row">
+              <div class="row" >
                 <div class="col-4">
                   <label for="campaignName" id="basic-addon3">
                     Campaign Name:

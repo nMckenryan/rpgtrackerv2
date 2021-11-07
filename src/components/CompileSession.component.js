@@ -73,7 +73,7 @@ const CompileSession = (props) => {
   };
 
   return (
-    <div>
+    <div class="card bg-dark text-white p-4">
       {/* Check if Logged in. No edit/creation available if not */}
       {user ? (
         <div className="submit-form">

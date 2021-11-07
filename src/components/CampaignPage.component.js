@@ -70,7 +70,7 @@ const Campaign = (props) => {
 
   // CLIENT VIEW
   return (
-    <div class="card bg-dark ">
+    <div class="card bg-dark p-3">
       <div class="d-flex justify-content-between mb-4">
         {/* BACK BUTTON */}
         <div class="col-1">

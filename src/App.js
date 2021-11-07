@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch, Link } from "react-router-dom";
 import {Helmet} from "react-helmet";
 
