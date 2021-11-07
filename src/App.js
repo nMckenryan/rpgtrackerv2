@@ -1,16 +1,13 @@
 import React from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import {Helmet} from "react-helmet";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
-
 import Campaign from "./components/CampaignPage.component";
 import CompileCampaign from "./components/CompileCampaign.component";
-
-import "react-toastify/dist/ReactToastify.css";
-import { useAuth0 } from "@auth0/auth0-react";
-
 import LoginButton from "./components/LoginButton.component";
 
 const App = () => {

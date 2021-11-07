@@ -92,9 +92,10 @@ const CompileCampaign = (props) => {
                 <h2 htmlFor="description" class="col text-center">
                   {editing ? "Edit" : "Create"} Campaign
                 </h2>
-                {editing && (
-                  <div class="col">
-                    {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
+
+                <div class="col">
+                  {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
+                  {editing && (
                     <div class="form-check">
                       <label class="form-check-label" for="flexCheckDefault">
                         Active?
@@ -108,13 +109,13 @@ const CompileCampaign = (props) => {
                         name="active"
                       />
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
               {/* CAMPAIGN NAME ENTRY */}
-              <div class="row" >
-                <div class="col-4">
+              <div class="d-flex flex-row justify-content-center gap-5">
+                <div class="col-4 pl-auto">
                   <label for="campaignName" id="basic-addon3">
                     Campaign Name:
                   </label>
@@ -130,7 +131,7 @@ const CompileCampaign = (props) => {
                 </div>
 
                 {/* GAME SYSTEM ENTRY */}
-                <div class="col-4">
+                <div class="col-4  ">
                   <label for="campaignName" id="basic-addon3">
                     Game System:
                   </label>
@@ -147,12 +148,17 @@ const CompileCampaign = (props) => {
                 </div>
               </div>
 
-              <div class="row">
+              <div class="d-flex flex-row justify-content-center gap-5">
+                  {/* DATE STARTED ENTRY */}
+                <div class="col-4">
+                  <label id="basic-addon3">Date Started:</label> <br />
+                  <DatePicker onChange={setStartDate} value={startDate} styles="background-color: white"/>
+                </div>
+                {/* TODO: Get required fields working */}
+
                 {/* GM ENTRY */}
                 <div class="col-4">
-                  <label for="campaignName" id="basic-addon3">
-                    Game Master:
-                  </label>
+                  <label id="basic-addon3">Game Master:</label>
 
                   <input
                     type="text"
@@ -163,34 +169,31 @@ const CompileCampaign = (props) => {
                     onChange={handleInputChange}
                     name="game_master"
                   />
-
-                  {/* DATE STARTED ENTRY */}
-                  <div class="col">
-                    <DatePicker onChange={setStartDate} value={startDate} />
-
-                    <button onClick={saveCampaign} className="btn btn-success">
-                      Submit
-                    </button>
-
-                    {/* ON SUCCESSFUL SUBMIT  */}
-                    {/* TODO: Replace with Toast? */}
-                    {submitted && (
-                      <div>
-                        <p>You submitted successfully!</p>
-                        {editing
-                          ? props.history.push(
-                              "/campaigns/" +
-                                props.location.state.currentCampaign._id
-                            )
-                          : props.history.push("/")}
-                      </div>
-                    )}
-                  </div>
                 </div>
+
+
               </div>
+                <div class="col-4 mx-auto">
+                  <button onClick={saveCampaign} className="btn btn-success">
+                    Submit
+                  </button>
+                </div>
+              
             </div>
+
+            {/* ON SUCCESSFUL SUBMIT  */}
+            {/* TODO: Replace with Toast? */}
+            {submitted && (
+              <div>
+                <p>You submitted successfully!</p>
+                {editing
+                  ? props.history.push(
+                      "/campaigns/" + props.location.state.currentCampaign._id
+                    )
+                  : props.history.push("/")}
+              </div>
+            )}
           </div>
-          )}
         </div>
       ) : (
         // TO DO: Enfore Login, notify customer

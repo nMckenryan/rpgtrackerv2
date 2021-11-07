@@ -157,7 +157,7 @@ const SessionList = (props) => {
                 <div className="col-lg-4 pb-3">
                   <div className="card h-100 bg-dark text-white">
                     {/* CAMPAIGN CARD BOX */}
-                    <div className="card-header d-flex">
+                    <div className="card-header d-flex mx-auto">
                       <h4 class="text-nowrap">
                         {camp.campaign_name + " "}
                         {camp.active ? (
@@ -170,11 +170,11 @@ const SessionList = (props) => {
 
                     <div className="card-body d-flex flex-column">
                       <div className="row justify-content-around">
-                        <div className="col">
+                      <div className="col-5 d-flex flex-column">
                           <p className="card-text m-0">{camp.game_system}</p>
                           <small class="text-muted">Game System</small>
                         </div>
-                        <div className="col d-flex flex-column">
+                        <div className="col-5 d-flex flex-column">
                           <p className="card-text m-0">{camp.game_master}</p>
                           <small class="text-muted mt-auto">Game Master</small>
                         </div>
@@ -182,18 +182,18 @@ const SessionList = (props) => {
                       <br />
 
                       <div className="row justify-content-around mt-auto">
-                        <div className="col-5">
+                        <div className="col-5  d-flex flex-column">
                           <Link
                             to={"/campaigns/" + camp._id}
                             className="btn btn-primary btn-sm mx-1 mb-1"
                           >
-                            <i class="bi bi-eyeglasses"></i>
+                            <h6><i class="bi bi-search"></i>
                             <br />
-                            View Sessions
+                            View Sessions</h6>
                           </Link>
                         </div>
 
-                        <div className="col-5">
+                        <div className="col-5  d-flex flex-column">
                           {/* EDIT CAMPAiGN BUTTONS */}
                           <Link
                             to={{
@@ -204,8 +204,8 @@ const SessionList = (props) => {
                             }}
                             className="btn btn-info btn-sm mx-1 mb-1"
                           >
-                            <i class="bi bi-pencil-square"></i> <br />
-                            Edit Campaign
+                             <h6><i class="bi bi-pencil-square"></i> <br />
+                           Edit Campaign</h6>
                           </Link>
                         </div>
                       </div>

@@ -1,13 +1,26 @@
 // 60:30:10 Rule. 
 
 // Override default variables before the import
-$primary: #90CAF9;
-$secondary: #757575; 
+$primary: #90CAF9; //bluegrey200
+$secondary: #424242; //grey800
 $success:  #A5D6A7; //light green 200 
 $danger:  #FFAB91; //deeporange 200
 $warning:  #FFE082; //orange 200
-$info:  #80DEEA; //cyan 200
+$info:  #CE93D8; //cyan 200
+$light: #9E9E9E; //grey500
 $dark: #212121; 
+
+.form-control {
+  background-color:  $light!important;
+};
+
+.react-datepicker,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    width: 100%;
+    background-color: white!important;
+};
 
 $theme-colors: (
   "primary":    $primary,
