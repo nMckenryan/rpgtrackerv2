@@ -170,7 +170,7 @@ const SessionList = (props) => {
 
                     <div className="card-body d-flex flex-column">
                       <div className="row justify-content-around">
-                      <div className="col-5 d-flex flex-column">
+                        <div className="col-5 d-flex flex-column">
                           <p className="card-text m-0">{camp.game_system}</p>
                           <small class="text-muted">Game System</small>
                         </div>
@@ -187,9 +187,11 @@ const SessionList = (props) => {
                             to={"/campaigns/" + camp._id}
                             className="btn btn-primary btn-sm mx-1 mb-1"
                           >
-                            <h6><i class="bi bi-search"></i>
-                            <br />
-                            View Sessions</h6>
+                            <h6>
+                              <i class="bi bi-search"></i>
+                              <br />
+                              View Sessions
+                            </h6>
                           </Link>
                         </div>
 
@@ -204,8 +206,10 @@ const SessionList = (props) => {
                             }}
                             className="btn btn-info btn-sm mx-1 mb-1"
                           >
-                             <h6><i class="bi bi-pencil-square"></i> <br />
-                           Edit Campaign</h6>
+                            <h6>
+                              <i class="bi bi-pencil-square"></i> <br />
+                              Edit Campaign
+                            </h6>
                           </Link>
                         </div>
                       </div>

@@ -78,7 +78,7 @@ const CompileCampaign = (props) => {
     <div class="card bg-dark text-white p-4">
       {/* Checks if Logged in. No edit/creation available if not */}
       {user ? (
-        <div className="submit-form">
+        <form className="submit-form needs-validation" novalidate>
           <div class="container">
             {/* // COMPILE CAMPAIGN */}
             <div className="form-group text-white bg-dark card">
@@ -123,7 +123,7 @@ const CompileCampaign = (props) => {
                     type="text"
                     className="form-control"
                     id="text"
-                    required
+                    required="true"
                     value={values.campaign_name}
                     onChange={handleInputChange}
                     name="campaign_name"
@@ -149,10 +149,14 @@ const CompileCampaign = (props) => {
               </div>
 
               <div class="d-flex flex-row justify-content-center gap-5">
-                  {/* DATE STARTED ENTRY */}
+                {/* DATE STARTED ENTRY */}
                 <div class="col-4">
                   <label id="basic-addon3">Date Started:</label> <br />
-                  <DatePicker onChange={setStartDate} value={startDate} styles="background-color: white"/>
+                  <DatePicker
+                    onChange={setStartDate}
+                    value={startDate}
+                    styles="background-color: white"
+                  />
                 </div>
                 {/* TODO: Get required fields working */}
 
@@ -170,15 +174,12 @@ const CompileCampaign = (props) => {
                     name="game_master"
                   />
                 </div>
-
-
               </div>
-                <div class="col-4 mx-auto">
-                  <button onClick={saveCampaign} className="btn btn-success">
-                    Submit
-                  </button>
-                </div>
-              
+              <div class="pt-3 mx-auto">
+                <button type="button" onClick={saveCampaign} className="btn btn-success">
+                  Submit
+                </button>
+              </div>
             </div>
 
             {/* ON SUCCESSFUL SUBMIT  */}
@@ -194,7 +195,7 @@ const CompileCampaign = (props) => {
               </div>
             )}
           </div>
-        </div>
+        </form>
       ) : (
         // TO DO: Enfore Login, notify customer
         //   Reroutes to Login page if not logged in

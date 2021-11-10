@@ -27,6 +27,7 @@ class CampaignDataService {
   }
 
   deleteRecord(id, userId, type) {
+    console.log(type)
     return http.delete(`/${type}-delete?id=${id}`, {
       data: { user_id: userId },
       // Get user ID for authenticating permissions

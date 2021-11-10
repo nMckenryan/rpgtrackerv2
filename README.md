@@ -1,5 +1,39 @@
-PROCESS:
+# DUNGEON TRACKER v.2: A Tracker for Tabletop RPG Games.
 
-1. Set up MongoDB Atlas & get sign in string via the "connect" button (Remember to fill in password)
-2. Populate MongoDB with sample data, then once finished fill "myFirstDatabase" in the Sign in String with the desired databased (e.g. sample_restaurants)
-3. To Filter Via name, Create an Index via MongoDB (json containing {name: text})
+## Hosted at https://rpg-tracker-zugah.mongodbstitch.com/
+
+## Instructions: 
+
+1. Login - or Create an Account if you haven't already.
+2. Create your first Campaign
+3. Once your RPG Session is complete, Create a Session and log your adventures.
+4. Done! Track future sessions (across campaigns) with this app! 
+
+Made using:
+- ReactJS 
+- MongoDB via MongoDB Atlas (Database Management)
+- MongoDB Realm (Website/Database Hosting and Queries) 
+- Axios and httpcommon (DB Connections)
+- Auth0 (User Authentication)
+- Bootstrap 5 with Sass (Styling)
+- React Helmet (SEO & Head Management)
+- Yarn (Package Management)
+
+
+W.I.P.
+
+### SCREENSHOTS: 
+
+#### HOMESCREEN:
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/HomepageScreen.PNG?raw=true)
+
+#### CREATE CAMPAIGN:
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/createCampaignScreen.PNG)
+
+#### CREATE SESSION:
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/createSessionScreeen.PNG?raw=true)
+
+
+### LIGHTHOUSE/CHECKBOT TESTS
+
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/createSessionScreeen.PNG?raw=true)

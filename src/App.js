@@ -3,7 +3,7 @@ import { Route, Switch, Link } from "react-router-dom";
 import {Helmet} from "react-helmet";
 import { useAuth0 } from "@auth0/auth0-react";
 
-
+import { ReactComponent as VikingLogo } from './img/vikinglogo.svg';
 import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
 import Campaign from "./components/CampaignPage.component";
@@ -26,13 +26,7 @@ const App = () => {
       {/* NAV BAR */}
       <nav className="navbar navbar-dark bg-dark  mr-auto text-white">
         <a class="navbar-brand" href="/campaigns">
-          <img
-            src="/vikinglogo.png"
-            width="30"
-            height="30"
-            class="d-inline-block align-top"
-            alt="vikingLogo"
-          />
+          <VikingLogo width="45" height="45" fill="#121212"/>
           Dungeon Tracker
         </a>
 

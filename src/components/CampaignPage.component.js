@@ -51,6 +51,24 @@ const Campaign = (props) => {
       });
   };
 
+  const deleteCampaign = (campId) => {
+    CampaignDataService.deleteRecord(campId, user.name, "campaign")
+      .then((response) => {
+        console.log("DELETED CAMPAIGN: " + campId);
+        props.history.push("/");
+      //   setCampaign((prevState) => {
+      //     prevState.campaign.splice(i, 1);
+      //     return {
+      //       ...prevState,
+      //     };
+      //   });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+
   // Trims Session log to excerpt if over 150 chars.
   const trimSession = (sLog) => {
     if (sLog.length > 150) {
@@ -60,13 +78,13 @@ const Campaign = (props) => {
     }
   };
 
-  const deleteConfirmation = () => {
-    try {
-      <ConfirmationModal title="WARNING"></ConfirmationModal>;
-    } catch (e) {
-      console.error("Could not launch Campaign Delete Confirmation Modal" + e);
-    }
-  };
+  // const deleteConfirmation = () => {
+  //   try {
+  //     <ConfirmationModal title="WARNING"></ConfirmationModal>;
+  //   } catch (e) {
+  //     console.error("Could not launch Campaign Delete Confirmation Modal" + e);
+  //   }
+  // };
 
   // CLIENT VIEW
   return (
@@ -99,7 +117,7 @@ const Campaign = (props) => {
         {/* DELETE CAMPAIGN BUTTON */}
         <div class="col-1 text-center">
           <button
-            onClick={deleteConfirmation}
+            onClick={() => deleteCampaign(campaign._id)}
             className="btn btn-danger"
             title="Delete your Campaign?"
           >

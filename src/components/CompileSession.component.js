@@ -77,96 +77,105 @@ const CompileSession = (props) => {
       {/* Check if Logged in. No edit/creation available if not */}
       {user ? (
         <div className="submit-form">
-          {/* Check if Submitted */}
-          {/* TODO: Replace with Toast? */}
-          {submitted ? (
-            <div>
-              <h4>You submitted successfully!</h4>
-              <Link
-                to={"/campaigns/" + props.match.params.id}
-                className="btn btn-success"
-              >
-                Back to Campaign
-              </Link>
-            </div>
-          ) : (
-            // COMPILE SESSION
-            <div class="container">
+          <div class="container">
+            {/* // COMPILE SESSION */}
+            <div className="form-group text-white bg-dark card">
               <div class="row justify-content-between">
-                <div class="col-1 mb-3">
+                {/* BACK BUTTON */}
+                <div class="col">
                   <Link to={"/"} className="btn btn-primary" title="Go Back">
                     <i class="bi bi-arrow-left-circle"></i>
                   </Link>
                 </div>
+                <h2 htmlFor="description" class="col text-center">
+                  {editing ? "Edit" : "Create"} Session
+                </h2>
+                <div class="col"></div>
+              </div>
 
-                <div className="form-group">
-                  <h2 htmlFor="description">
-                    {editing ? "Edit" : "Create"} Session
-                  </h2>
+              {/* CHAR NAME ENTRY */}
+              <div class="d-flex flex-row justify-content-center gap-5">
+                <div class="col-4 pl-auto">
+                  <label id="basic-addon3">Character Name:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.char_name}
+                    onChange={handleInputChange}
+                    name="char_name"
+                  />
+                </div>
+
+                {/* CLASS/LEVEL ENTRY */}
+                <div class="col-4  ">
+                  <label for="campaignName" id="basic-addon3">
+                    Class & Level
+                  </label>
+
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="text"
+                    required
+                    value={values.char_level}
+                    onChange={handleInputChange}
+                    name="char_level"
+                  />
                 </div>
               </div>
 
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">
-                    Character Name:
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="text"
-                  required
-                  value={values.char_name}
-                  onChange={handleInputChange}
-                  name="char_name"
-                />
+              <div class="d-flex flex-row justify-content-center gap-5">
+                <div class="col">
+                  <label id="basic-addon3">Session Log:</label>
 
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">
-                    Class & Level:
-                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    aria-label="With textarea"
+                    id="text"
+                    required
+                    value={values.session_log}
+                    onChange={handleInputChange}
+                    name="session_log"
+                  />
                 </div>
-
-                <input
-                  type="text"
-                  className="form-control"
-                  id="text"
-                  required
-                  value={values.char_level}
-                  onChange={handleInputChange}
-                  name="char_level"
-                />
-
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">
-                    Date:
-                  </span>
-                </div>
-                <DatePicker onChange={setCalendate} value={calendate} />
               </div>
 
-              <div class="input-group">
-                <span class="input-group-text">Session Log</span>
-                <textarea
-                  type="text"
-                  className="form-control"
-                  aria-label="With textarea"
-                  id="text"
-                  required
-                  value={values.session_log}
-                  onChange={handleInputChange}
-                  name="session_log"
+              {/* DATE ENTRY */}
+              <div class="col-4">
+                <label id="basic-addon3">Date:</label> <br />
+                <DatePicker
+                  onChange={setCalendate}
+                  value={calendate}
+                  styles="background-color: white"
                 />
               </div>
-              <button onClick={saveSession} className="btn btn-success">
-                Submit
-              </button>
+              <div class="mt-3 mx-auto">
+                <button onClick={saveSession} className="btn btn-success">
+                  Submit
+                </button>
+              </div>
             </div>
-          )}
+
+            {/* ON SUCCESSFUL SUBMIT  */}
+            {/* TODO: Replace with Toast? */}
+            {submitted && (
+              <div>
+                <p>You submitted successfully!</p>
+                {editing
+                  ? props.history.push(
+                      "/campaigns/" + props.location.state.currentCampaign._id
+                    )
+                  : props.history.push("/")}
+              </div>
+            )}
+          </div>
         </div>
       ) : (
-        //   Failstate if not Logged in
+        // TO DO: Enfore Login, notify customer
+        //   Reroutes to Login page if not logged in
         props.history.push("/")
       )}
     </div>
