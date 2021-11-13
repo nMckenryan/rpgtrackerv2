@@ -79,37 +79,37 @@ const CompileCampaign = (props) => {
   };
 
   return (
-    <div class="card bg-dark text-white p-4">
+    <div className="card bg-dark text-white p-4">
       {/* Checks if Logged in. No edit/creation available if not */}
-      {user ? (<div class="container">
-        <form class="needs-validation">
+      {user ? (<div className="container">
+        <form className="needs-validation">
           
             {/* // COMPILE CAMPAIGN */}
             <div className="form-group text-white bg-dark card">
-              <div class="row justify-content-between">
+              <div className="row justify-content-between">
                 {/* BACK BUTTON */}
-                <div class="col">
+                <div className="col">
                   <Link to={"/"} className="btn btn-primary" title="Go Back">
-                    <i class="bi bi-arrow-left-circle"></i>
+                    <i className="bi bi-arrow-left-circle"></i>
                   </Link>
                 </div>
                 {/* SET TO H1 FOR SEO REASONS */}
                 <h1
-                  class="h2 col text-center text-nowrap"
+                  className="h2 col text-center text-nowrap"
                   htmlFor="description"
                 >
                   {editing ? "Edit" : "Create"} Campaign
                 </h1>
 
-                <div class="col mt-5">
+                <div className="col mt-5">
                   {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
                   {editing && (
-                    <div class="form-check">
-                      <label class="form-check-label" for="flexCheckDefault">
+                    <div className="form-check">
+                      <label className="form-check-label" htmlFor="flexCheckDefault">
                         Active?
                       </label>
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         value={values.active}
                         id="flexCheckDefault"
@@ -123,9 +123,9 @@ const CompileCampaign = (props) => {
               </div>
 
               {/* CAMPAIGN NAME ENTRY */}
-              <div class="d-flex flex-row justify-content-center gap-5">
-                <div class="col-4 pl-auto">
-                  <label for="campaignName" id="basic-addon3">
+              <div className="d-flex flex-row justify-content-center gap-5">
+                <div className="col-4 pl-auto">
+                  <label htmlFor="campaignName" id="basic-addon3">
                     Campaign Name:
                   </label>
                   <input
@@ -137,14 +137,14 @@ const CompileCampaign = (props) => {
                     onChange={handleInputChange}
                     name="campaign_name"
                   />
-                  <div class="invalid-feedback">
+                  <div className="invalid-feedback">
                     Please provide a valid campaign name.
                   </div>
                 </div>
 
                 {/* GAME SYSTEM ENTRY */}
-                <div class="col-4  ">
-                  <label for="campaignName" id="basic-addon3">
+                <div className="col-4  ">
+                  <label htmlFor="campaignName" id="basic-addon3">
                     Game System:
                   </label>
 
@@ -160,12 +160,12 @@ const CompileCampaign = (props) => {
                 </div>
               </div>
 
-              <div class="d-flex flex-row justify-content-center gap-5">
+              <div className="d-flex flex-row justify-content-center gap-5">
                 {/* DATE STARTED ENTRY */}
-                <div class="col-4">
+                <div className="col-4">
                   <label id="basic-addon3">Date Started:</label> <br />
                   <DatePicker
-                    class="w-50"
+                    className="w-50"
                     locale="en-AU"
                     onChange={setStartDate}
                     value={startDate}
@@ -176,7 +176,7 @@ const CompileCampaign = (props) => {
                 {/* TODO: Get required fields working */}
 
                 {/* GM ENTRY */}
-                <div class="col-4">
+                <div className="col-4">
                   <label id="basic-addon3">Game Master:</label>
 
                   <input
@@ -190,10 +190,11 @@ const CompileCampaign = (props) => {
                   />
                 </div>
               </div>
-              <div class="pt-3 mx-auto">
+              <div className="pt-3 mx-auto">
                 <input
                   type="submit"
                   className="btn btn-success"
+                  onClick={handleSubmit}
                 >
                   
                 </input>

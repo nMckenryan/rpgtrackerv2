@@ -88,12 +88,12 @@ const Campaign = (props) => {
 
   // CLIENT VIEW
   return (
-    <div class="card bg-dark p-3">
-      <div class="d-flex justify-content-between mb-4">
+    <div className="card bg-dark p-3">
+      <div className="d-flex justify-content-between mb-4">
         {/* BACK BUTTON */}
-        <div class="col-1">
+        <div className="col-1">
           <Link to={"/"} className="btn btn-primary" title="Go Back">
-            <i class="bi bi-arrow-left-circle"></i>
+            <i className="bi bi-arrow-left-circle"></i>
           </Link>
         </div>
 
@@ -109,68 +109,68 @@ const Campaign = (props) => {
               }}
               className="btn btn-info col"
             >
-              <i class="bi bi-pencil-square"></i>
+              <i className="bi bi-pencil-square"></i>
             </Link>
           </div>
         )}
 
         {/* DELETE CAMPAIGN BUTTON */}
-        <div class="col-1 text-center">
+        <div className="col-1 text-center">
           <button
             onClick={() => deleteCampaign(campaign._id)}
             className="btn btn-danger"
             title="Delete your Campaign?"
           >
-            <i class="bi bi-trash"></i>
+            <i className="bi bi-trash"></i>
           </button>
         </div>
       </div>
 
       {/* CAMPAIGN DETAILS */}
       {campaign ? (
-        <div class="text-white">
-          <div class="container">
-            <div class="row">
-              <div class="col">
+        <div className="text-white">
+          <div className="container">
+            <div className="row">
+              <div className="col">
                 <h1 className="h4 text-uppercase">{campaign.campaign_name}</h1>
-                <small class="text-muted">Campaign Name</small>
+                <small className="text-muted">Campaign Name</small>
               </div>
 
-              <div class="col">
+              <div className="col">
                 <h4>{campaign.game_system}</h4>
-                <small class="text-muted">Game System</small>
+                <small className="text-muted">Game System</small>
               </div>
 
-              <div class="col">
+              <div className="col">
                 <h4>{campaign.game_master} </h4>
-                <small class="text-muted">Game Master </small>
+                <small className="text-muted">Game Master </small>
               </div>
 
               {/* CAMPAIGN ACTIVE STATUS */}
-              <div class="col">
+              <div className="col">
                 {campaign.active ? (
-                  <div class="text-center">
+                  <div className="text-center">
                     <h4>
-                      <i class="bi bi-check-circle-fill"></i>
+                      <i className="bi bi-check-circle-fill"></i>
                     </h4>
-                    <small class="text-muted">Campaign Active</small>
+                    <small className="text-muted">Campaign Active</small>
                   </div>
                 ) : (
                   <>
-                    <h4 class="text-center">
-                      <i class="bi bi-x-circle-fill"></i>
+                    <h4 className="text-center">
+                      <i className="bi bi-x-circle-fill"></i>
                     </h4>
-                    <small class="text-muted">Campaign Inactive</small>
+                    <small className="text-muted">Campaign Inactive</small>
                   </>
                 )}
               </div>
 
               {/* DATE STARTED */}
-              <div class="col">
-                <h4 class="">
+              <div className="col">
+                <h4 className="">
                   {new Date(campaign.date_started).toLocaleDateString("en-AU")}
                 </h4>
-                <small class="text-muted">Start Date </small>
+                <small className="text-muted">Start Date </small>
               </div>
             </div>
 
@@ -182,13 +182,13 @@ const Campaign = (props) => {
           <div className="row">
             {/* ADD NEW SESSION BUTTON */}
             {isAuthenticated && user.name === campaign.user_id && (
-              <div class="col-lg-4 pb-1" key="0">
+              <div className="col-lg-4 pb-1" key="0">
                 <Link
                   to={"/campaigns/" + props.match.params.id + "/session"}
-                  class="btn btn-secondary h-100 w-100 d-flex justify-content-center align-items-center"
+                  className="btn btn-secondary h-100 w-100 d-flex justify-content-center align-items-center"
                 >
-                  <h4 class="p-10">
-                    <i class="bi bi-pencil-fill"></i>
+                  <h4 className="p-10">
+                    <i className="bi bi-pencil-fill"></i>
                     Add New Session
                   </h4>
                 </Link>
@@ -201,7 +201,7 @@ const Campaign = (props) => {
                 return (
                   <div className="col-lg-4 pb-1" key={index}>
                     <div className="card bg-secondary ">
-                      <h5 class="card-header text-center">
+                      <h5 className="card-header text-center">
                         {session.char_name}-{session.char_level}
                       </h5>
                       <div className="card-body">
@@ -219,7 +219,7 @@ const Campaign = (props) => {
                         </p>
 
                         {isAuthenticated && user.name === session.user_id && (
-                          <div class="card-footer row">
+                          <div className="card-footer row">
                             {/* EDIT SESSION  BUTTONS */}
                             <Link
                               to={{
@@ -233,7 +233,7 @@ const Campaign = (props) => {
                               }}
                               className="btn btn-info btn-sm col"
                             >
-                              <i class="bi bi-pencil-square"></i>
+                              <i className="bi bi-pencil-square"></i>
                               View/Edit Session
                             </Link>
 
@@ -242,7 +242,7 @@ const Campaign = (props) => {
                               className="btn btn-danger btn-sm col"
                               onClick={() => deleteSession(session._id, index)}
                             >
-                              <i class="bi bi-trash"></i>
+                              <i className="bi bi-trash"></i>
                               Delete Session
                             </button>
                           </div>

@@ -73,30 +73,33 @@ const CompileSession = (props) => {
   };
 
   return (
-    <div class="card bg-dark text-white p-4">
+    <div className="card bg-dark text-white p-4">
       {/* Check if Logged in. No edit/creation available if not */}
       {user ? (
         <div className="submit-form">
-          <div class="container">
+          <div className="container">
             {/* // COMPILE SESSION */}
             <div className="form-group text-white bg-dark card">
-              <div class="row justify-content-between">
+              <div className="row justify-content-between">
                 {/* BACK BUTTON */}
-                <div class="col">
+                <div className="col">
                   <Link to={"/"} className="btn btn-primary" title="Go Back">
-                    <i class="bi bi-arrow-left-circle"></i>
+                    <i className="bi bi-arrow-left-circle"></i>
                   </Link>
                 </div>
                 {/* SET TO H1 FOR SEO REASONS */}
-                <h1 class="h2 col text-center text-nowrap" htmlFor="description">
+                <h1
+                  className="h2 col text-center text-nowrap"
+                  htmlFor="description"
+                >
                   {editing ? "Edit" : "Create"} Session
                 </h1>
-                <div class="col"></div>
+                <div className="col"></div>
               </div>
 
               {/* CHAR NAME ENTRY */}
-              <div class="d-flex flex-row justify-content-center gap-5">
-                <div class="col-4 pl-auto">
+              <div className="d-flex flex-row justify-content-center gap-5">
+                <div className="col-4 pl-auto">
                   <label id="basic-addon3">Character Name:</label>
                   <input
                     type="text"
@@ -110,8 +113,8 @@ const CompileSession = (props) => {
                 </div>
 
                 {/* CLASS/LEVEL ENTRY */}
-                <div class="col-4  ">
-                  <label for="campaignName" id="basic-addon3">
+                <div className="col-4  ">
+                  <label htmlFor="campaignName" id="basic-addon3">
                     Class & Level
                   </label>
 
@@ -125,10 +128,22 @@ const CompileSession = (props) => {
                     name="char_level"
                   />
                 </div>
+
+                {/* TODO: GET STYLING WORKING - GET WORKIGN WITH GRID.  */}
+                {/* DATE ENTRY */}
+                <div className="col">
+                  <label id="basic-addon3">Date:</label> <br />
+                  <DatePicker
+                    locale="en"
+                    onChange={setCalendate}
+                    value={calendate}
+                    styles="background-color: white"
+                  />
+                </div>
               </div>
 
-              <div class="d-flex flex-row justify-content-center gap-5">
-                <div class="col">
+              <div className="d-flex flex-row justify-content-center gap-5">
+                <div className="col">
                   {/* TODO: GET TEXTAREA WORKING */}
                   <label id="basic-addon3">Session Log:</label>
 
@@ -145,24 +160,11 @@ const CompileSession = (props) => {
                 </div>
               </div>
 
-              <div class="d-flex flex-row justify-content-center gap-5">
-              {/* TODO: GET STYLING WORKING - GET WORKIGN WITH GRID.  */}
-              {/* DATE ENTRY */}
-              <div class="col">
-                <label id="basic-addon3">Date:</label> <br />
-                <DatePicker
-                  locale="en"
-                  onChange={setCalendate}
-                  value={calendate}
-                  styles="background-color: white"
-                />
-              </div>
-              <div class="col mt-3 mx-auto">
+              <div className="col mt-3 mx-auto">
                 <button onClick={saveSession} className="btn btn-success">
                   Submit
                 </button>
               </div>
-            </div>
             </div>
 
             {/* ON SUCCESSFUL SUBMIT  */}

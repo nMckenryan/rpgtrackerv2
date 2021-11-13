@@ -31,16 +31,16 @@ const App = () => {
 
       {/* NAV BAR */}
       <nav className="navbar navbar-dark bg-dark  mr-auto text-white container-fluid">
-        <a class="navbar-brand d-flex" href="/campaigns">
+        <a className="navbar-brand d-flex" href="/campaigns">
           <h1><VikingLogo width="40" height="40" fill="#121212"/>
           {headers.title}</h1>
         </a>
 
         <span className="nav-item">
-          {!isLoading && !user && <button class="btn btn-dark" onClick={() => loginWithPopup()}>Log In</button>}
+          {!isLoading && !user && <button className="btn btn-dark" onClick={() => loginWithPopup()}>Log In</button>}
           {!isLoading && user && (
             <>
-              <div class="d-flex">
+              <div className="d-flex">
                 <img
                   src={user.picture}
                   alt={user.name}
@@ -51,10 +51,10 @@ const App = () => {
                   <h6>{user.name}</h6>
                   <small>{user.email}</small>
                 </div>
-                <button class="btn btn-dark"
+                <button className="btn btn-dark"
                   onClick={() => logout({ returnTo: window.location.origin })}
                 >
-                  <i class="bi bi-door-open-fill"></i>
+                  <i className="bi bi-door-open-fill"></i>
                 </button>
               </div>
             </>
