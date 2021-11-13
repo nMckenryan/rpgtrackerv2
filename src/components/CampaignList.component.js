@@ -6,14 +6,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 const SessionList = (props) => {
   const [campaigns, setCampaigns] = useState([]);
   // const [searchName, setSearchName] = useState("");
-  const [searchSystem, setSearchSystem] = useState("");
-  const [systems, setSystems] = useState(["All Systems"]);
+  // const [searchSystem, setSearchSystem] = useState("");
+  // const [systems, setSystems] = useState(["All Systems"]);
 
   const { user, isAuthenticated, loginWithPopup, isLoading } = useAuth0();
 
   useEffect(() => {
     retrieveCampaigns();
-    retrieveSystems();
+    // retrieveSystems();
   }, []);
 
   // const onChangeSearchName = (e) => {
@@ -25,11 +25,11 @@ const SessionList = (props) => {
   //   find(searchName, "name");
   // };
 
-  const onChangeSearchSystem = (e) => {
-    const searchSystem = e.target.value;
-    console.log(e);
-    setSearchSystem(searchSystem);
-  };
+  // const onChangeSearchSystem = (e) => {
+  //   const searchSystem = e.target.value;
+  //   console.log(e);
+  //   setSearchSystem(searchSystem);
+  // };
 
   const retrieveCampaigns = () => {
     CampaignDataService.getAll()
@@ -42,43 +42,43 @@ const SessionList = (props) => {
   };
 
   //Getting Systems for System Sort Menu
-  const retrieveSystems = () => {
-    CampaignDataService.getSystems()
-      .then((response) => {
-        setSystems(["All Systems"].concat(response.data));
-      })
-      .catch((e) => {
-        console.error("Could not retrieve Systems: " + e);
-      });
-  };
+  // const retrieveSystems = () => {
+  //   CampaignDataService.getSystems()
+  //     .then((response) => {
+  //       setSystems(["All Systems"].concat(response.data));
+  //     })
+  //     .catch((e) => {
+  //       console.error("Could not retrieve Systems: " + e);
+  //     });
+  // };
 
-  const refreshList = () => {
-    retrieveCampaigns();
-  };
+  // const refreshList = () => {
+  //   retrieveCampaigns();
+  // };
 
-  const find = (query, by) => {
-    CampaignDataService.find(query, by)
-      .then((response) => {
-        // console.log(response.data);
-        setCampaigns(response.data.campaigns);
-      })
-      .catch((e) => {
-        console.error("Not Found" + e);
-      });
-  };
+  // const find = (query, by) => {
+  //   CampaignDataService.find(query, by)
+  //     .then((response) => {
+  //       // console.log(response.data);
+  //       setCampaigns(response.data.campaigns);
+  //     })
+  //     .catch((e) => {
+  //       console.error("Not Found" + e);
+  //     });
+  // };
 
-  const findBySystem = () => {
-    if (searchSystem === "All Systems") {
-      refreshList();
-    } else {
-      find(searchSystem, "game_system");
-    }
-  };
+  // const findBySystem = () => {
+  //   if (searchSystem === "All Systems") {
+  //     refreshList();
+  //   } else {
+  //     find(searchSystem, "game_system");
+  //   }
+  // };
 
   return (
     <>
       {/* SEARCH BAR */}
-      {/* TODO: Get Functional */}
+      {/* TODO: Get Search bar Functional */}
       {/* <div className="row pb-1"> 
         
 
@@ -102,7 +102,7 @@ const SessionList = (props) => {
         </div> */}
 
       {/* SORT BAR */}
-      {/* TODO: Repair */}
+      {/* TODO: Repair Sort by System */}
       {/* <div className="input-group col-lg-4">
           <select onChange={onChangeSearchSystem}>
             {systems.map((sys) => {
@@ -123,7 +123,9 @@ const SessionList = (props) => {
       {/* RESULTS GRID */}
       <div className="row justify-content-center text-white">
         {isLoading ? (
-          <h2 class="text-center">Loading...</h2>
+          <div class="spinner-border text-light mt-100" style={{width: '5rem', height: '5rem'}} role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
         ) : (
           <div className="col-lg-4 pb-3">
             {isAuthenticated ? (
@@ -158,7 +160,7 @@ const SessionList = (props) => {
                   <div className="card h-100 bg-dark text-white">
                     {/* CAMPAIGN CARD BOX */}
                     <div className="card-header d-flex mx-auto">
-                      <h4 class="text-nowrap">
+                      <h4 class="text-nowrap mw-100">
                         {camp.campaign_name + " "}
                         {camp.active ? (
                           <i class="bi bi-check-circle-fill"></i>

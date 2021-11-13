@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import ConfirmationModal from "./ConfirmationModal.component";
+// import ConfirmationModal from "./ConfirmationModal.component";
 
 // VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions
 
@@ -17,7 +17,7 @@ const Campaign = (props) => {
   };
 
   const [campaign, setCampaign] = useState(initialCampaignState);
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const getCampaign = (id) => {
     CampaignDataService.get(id)
@@ -132,7 +132,7 @@ const Campaign = (props) => {
           <div class="container">
             <div class="row">
               <div class="col">
-                <h4 className="text-uppercase">{campaign.campaign_name}</h4>
+                <h1 className="h4 text-uppercase">{campaign.campaign_name}</h1>
                 <small class="text-muted">Campaign Name</small>
               </div>
 

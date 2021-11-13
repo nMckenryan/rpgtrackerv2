@@ -10,7 +10,7 @@ const CompileCampaign = (props) => {
   let initialValues = {
     campaign_name: "",
     game_master: "",
-    date_started: new Date(),
+    date_started: null,
     game_system: "",
     active: true,
   };
@@ -26,7 +26,7 @@ const CompileCampaign = (props) => {
 
   const [values, setValues] = useState(initialValues);
   const [submitted, setSubmitted] = useState(false);
-  const { user, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +36,11 @@ const CompileCampaign = (props) => {
       [name]: value,
     });
   };
+  
 
   // SAVE CAMPAIGN
-  const saveCampaign = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     var data = {
       campaign_name: values.campaign_name,
       game_master: values.game_master,
@@ -49,13 +51,15 @@ const CompileCampaign = (props) => {
       campaign_id: props.match.params.id,
     };
 
+    console.log(data);
+
     // EDITING
     if (editing) {
       data.campaign_id = props.location.state.currentCampaign._id;
       CampaignDataService.updateRecord(data, "campaign")
         .then((response) => {
           setSubmitted(true);
-          console.log(response.data);
+          console.log("Editted Campaign Successfully" + response.data);
         })
         .catch((e) => {
           console.error("Could not Edit Campaign: " + e);
@@ -66,7 +70,7 @@ const CompileCampaign = (props) => {
       CampaignDataService.createRecord(data, "campaign")
         .then((response) => {
           setSubmitted(true);
-          console.log(response.data);
+          console.log("Created Campaign Successfully" + response.data);
         })
         .catch((e) => {
           console.error("Could not Add New Campaign: " + e);
@@ -77,9 +81,9 @@ const CompileCampaign = (props) => {
   return (
     <div class="card bg-dark text-white p-4">
       {/* Checks if Logged in. No edit/creation available if not */}
-      {user ? (
-        <form className="submit-form needs-validation" novalidate>
-          <div class="container">
+      {user ? (<div class="container">
+        <form class="needs-validation">
+          
             {/* // COMPILE CAMPAIGN */}
             <div className="form-group text-white bg-dark card">
               <div class="row justify-content-between">
@@ -89,11 +93,15 @@ const CompileCampaign = (props) => {
                     <i class="bi bi-arrow-left-circle"></i>
                   </Link>
                 </div>
-                <h2 htmlFor="description" class="col text-center">
+                {/* SET TO H1 FOR SEO REASONS */}
+                <h1
+                  class="h2 col text-center text-nowrap"
+                  htmlFor="description"
+                >
                   {editing ? "Edit" : "Create"} Campaign
-                </h2>
+                </h1>
 
-                <div class="col">
+                <div class="col mt-5">
                   {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
                   {editing && (
                     <div class="form-check">
@@ -107,6 +115,7 @@ const CompileCampaign = (props) => {
                         id="flexCheckDefault"
                         onChange={handleInputChange}
                         name="active"
+                        required
                       />
                     </div>
                   )}
@@ -123,11 +132,14 @@ const CompileCampaign = (props) => {
                     type="text"
                     className="form-control"
                     id="text"
-                    required="true"
+                    required
                     value={values.campaign_name}
                     onChange={handleInputChange}
                     name="campaign_name"
                   />
+                  <div class="invalid-feedback">
+                    Please provide a valid campaign name.
+                  </div>
                 </div>
 
                 {/* GAME SYSTEM ENTRY */}
@@ -153,9 +165,12 @@ const CompileCampaign = (props) => {
                 <div class="col-4">
                   <label id="basic-addon3">Date Started:</label> <br />
                   <DatePicker
+                    class="w-50"
+                    locale="en-AU"
                     onChange={setStartDate}
                     value={startDate}
                     styles="background-color: white"
+                    required
                   />
                 </div>
                 {/* TODO: Get required fields working */}
@@ -176,9 +191,12 @@ const CompileCampaign = (props) => {
                 </div>
               </div>
               <div class="pt-3 mx-auto">
-                <button type="button" onClick={saveCampaign} className="btn btn-success">
-                  Submit
-                </button>
+                <input
+                  type="submit"
+                  className="btn btn-success"
+                >
+                  
+                </input>
               </div>
             </div>
 
@@ -194,8 +212,8 @@ const CompileCampaign = (props) => {
                   : props.history.push("/")}
               </div>
             )}
-          </div>
-        </form>
+          
+        </form></div>
       ) : (
         // TO DO: Enfore Login, notify customer
         //   Reroutes to Login page if not logged in

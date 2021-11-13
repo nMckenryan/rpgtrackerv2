@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import {Helmet} from "react-helmet";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -8,26 +8,32 @@ import CampaignList from "./components/CampaignList.component";
 import CompileSession from "./components/CompileSession.component";
 import Campaign from "./components/CampaignPage.component";
 import CompileCampaign from "./components/CompileCampaign.component";
-import LoginButton from "./components/LoginButton.component";
 
 const App = () => {
-  const { loginWithRedirect, loginWithPopup, logout, isAuthenticated, user, isLoading } =
+  const { loginWithPopup, logout, user, isLoading } =
     useAuth0();
+
+  const headers = {
+    title: "Dungeon Tracker",
+    desc: "A Tracker for Tabletop RPG Games",
+  };
 
   return (
     <div className="application">
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Dungeon Tracker</title>
-                <link rel="canonical" href="http://mysite.com/example" />
+                <title>{headers.title}</title>
+                <meta name="description" content={headers.desc} />
+                <meta name="theme-color" content="#121212" />
+                <link rel="canonical" href="https://rpg-tracker-zugah.mongodbstitch.com/" />
                 <style>{'body { background-color: #121212; }'}</style>
             </Helmet>
 
       {/* NAV BAR */}
-      <nav className="navbar navbar-dark bg-dark  mr-auto text-white">
-        <a class="navbar-brand" href="/campaigns">
-          <VikingLogo width="45" height="45" fill="#121212"/>
-          Dungeon Tracker
+      <nav className="navbar navbar-dark bg-dark  mr-auto text-white container-fluid">
+        <a class="navbar-brand d-flex" href="/campaigns">
+          <h1><VikingLogo width="40" height="40" fill="#121212"/>
+          {headers.title}</h1>
         </a>
 
         <span className="nav-item">

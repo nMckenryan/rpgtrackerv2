@@ -1,36 +1,42 @@
-// 60:30:10 Rule. 
+// 60:30:10 Rule.
 
 // Override default variables before the import
-$primary: #90CAF9; //bluegrey200
+$primary: #90caf9; //bluegrey200
 $secondary: #424242; //grey800
-$success:  #A5D6A7; //light green 200 
-$danger:  #FFAB91; //deeporange 200
-$warning:  #FFE082; //orange 200
-$info:  #CE93D8; //cyan 200
-$light: #9E9E9E; //grey500
-$dark: #212121; 
+$success: #a5d6a7; //light green 200
+$danger: #ffab91; //deeporange 200
+$warning: #ffe082; //orange 200
+$info: #ce93d8; //cyan 200
+$light: #9e9e9e; //grey500
+$dark: #212121;
 
 .form-control {
-  background-color:  $light!important;
-};
+  background-color: $light !important;
+}
 
-.react-datepicker,
+.react-datepicker-wrapper,
 .react-datepicker__input-container,
 .react-datepicker__input-container input {
-    display: block;
-    width: 100%;
-    background-color: white!important;
-};
+  display: block;
+  width: 100%;
+  background: $light;
+}
 
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "dark":       $dark
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "dark": $dark
 );
 
+$custom-colors: (
+  "offwhite": #e3ebf8
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
 // Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";

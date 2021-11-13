@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import DatePicker from "react-date-picker";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Add or Edit a Session
-
 const CompileSession = (props) => {
   let initialValues = {
     session_log: "",
@@ -87,9 +87,10 @@ const CompileSession = (props) => {
                     <i class="bi bi-arrow-left-circle"></i>
                   </Link>
                 </div>
-                <h2 htmlFor="description" class="col text-center">
+                {/* SET TO H1 FOR SEO REASONS */}
+                <h1 class="h2 col text-center text-nowrap" htmlFor="description">
                   {editing ? "Edit" : "Create"} Session
-                </h2>
+                </h1>
                 <div class="col"></div>
               </div>
 
@@ -128,9 +129,10 @@ const CompileSession = (props) => {
 
               <div class="d-flex flex-row justify-content-center gap-5">
                 <div class="col">
+                  {/* TODO: GET TEXTAREA WORKING */}
                   <label id="basic-addon3">Session Log:</label>
 
-                  <input
+                  <textarea
                     type="text"
                     className="form-control"
                     aria-label="With textarea"
@@ -143,20 +145,24 @@ const CompileSession = (props) => {
                 </div>
               </div>
 
+              <div class="d-flex flex-row justify-content-center gap-5">
+              {/* TODO: GET STYLING WORKING - GET WORKIGN WITH GRID.  */}
               {/* DATE ENTRY */}
-              <div class="col-4">
+              <div class="col">
                 <label id="basic-addon3">Date:</label> <br />
                 <DatePicker
+                  locale="en"
                   onChange={setCalendate}
                   value={calendate}
                   styles="background-color: white"
                 />
               </div>
-              <div class="mt-3 mx-auto">
+              <div class="col mt-3 mx-auto">
                 <button onClick={saveSession} className="btn btn-success">
                   Submit
                 </button>
               </div>
+            </div>
             </div>
 
             {/* ON SUCCESSFUL SUBMIT  */}
