@@ -199,16 +199,20 @@ const CompileCampaign = (props) => {
                   className="btn btn-success"
                 />
 
-                {/* ON SUCCESSFUL SUBMIT  */}
-                {/* TODO: Replace with Toast? */}
+                {/* ON SUCCESSFUL CAMPAIGN SUBMIT  */}
                 {submitted && (
-                  <div>
-                    <p>You submitted successfully!</p>
-                    {/* {editing
-                  ? props.history.push(
-                      "/campaigns/" + props.location.state.currentCampaign._id
-                    )
-                  : props.history.push("/")} */}
+                  <div class="text-center text-success">
+                    <p>{editing ? "Campaign Edited!" : "Campaign Created!"}</p>
+                    {editing
+                      ? setTimeout(() => {
+                          props.history.push(
+                            "/campaigns/" +
+                              props.location.state.currentSession._id
+                          );
+                        }, 1000)
+                      : setTimeout(() => {
+                          props.history.push("/");
+                        }, 1000)}
                   </div>
                 )}
               </div>

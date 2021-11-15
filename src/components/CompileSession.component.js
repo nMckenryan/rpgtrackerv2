@@ -161,20 +161,28 @@ const CompileSession = (props) => {
               </div>
 
               <div className="col mt-3 mx-auto">
-                <input type="submit" value="Create" className="btn btn-success"/>
+                <input
+                  type="submit"
+                  value="Create"
+                  className="btn btn-success"
+                />
               </div>
             </div>
 
-            {/* ON SUCCESSFUL SUBMIT  */}
-            {/* TODO: Replace with Toast? */}
+            {/* ON SUCCESSFUL CAMPAIGN SUBMIT  */}
             {submitted && (
-              <div>
-                <p>You submitted successfully!</p>
+              <div class="text-center text-success">
+                <p>{editing ? "Session Edited!" : "Session Created!"}</p>
+
                 {editing
-                  ? props.history.push(
-                      "/campaigns/" + props.location.state.currentCampaign._id
-                    )
-                  : props.history.push("/")}
+                  ? setTimeout(() => {
+                      props.history.push(
+                        "/campaigns/" + props.location.state.currentSession._id
+                      );
+                    }, 1000)
+                  : setTimeout(() => {
+                      props.history.push("/");
+                    }, 1000)}
               </div>
             )}
           </div>
