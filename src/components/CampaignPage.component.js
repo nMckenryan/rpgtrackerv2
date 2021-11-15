@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import ConfirmationModal from "./ConfirmationModal.component";
 // import ConfirmationModal from "./ConfirmationModal.component";
 
 // VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions

@@ -11,9 +11,6 @@ export default function ConfirmationModal(props) {
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>{props.message}</p>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">{props.button}</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

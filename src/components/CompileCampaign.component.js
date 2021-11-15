@@ -36,7 +36,6 @@ const CompileCampaign = (props) => {
       [name]: value,
     });
   };
-  
 
   // SAVE CAMPAIGN
   const handleSubmit = (e) => {
@@ -81,9 +80,9 @@ const CompileCampaign = (props) => {
   return (
     <div className="card bg-dark text-white p-4">
       {/* Checks if Logged in. No edit/creation available if not */}
-      {user ? (<div className="container">
-        <form className="needs-validation">
-          
+      {user ? (
+        <div className="container">
+          <form className="needs-validation" onSubmit={handleSubmit}>
             {/* // COMPILE CAMPAIGN */}
             <div className="form-group text-white bg-dark card">
               <div className="row justify-content-between">
@@ -105,7 +104,10 @@ const CompileCampaign = (props) => {
                   {/* ACTIVE CAMPAIGN CHECKBOX (conditional) */}
                   {editing && (
                     <div className="form-check">
-                      <label className="form-check-label" htmlFor="flexCheckDefault">
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
                         Active?
                       </label>
                       <input
@@ -193,28 +195,26 @@ const CompileCampaign = (props) => {
               <div className="pt-3 mx-auto">
                 <input
                   type="submit"
+                  value="Create"
                   className="btn btn-success"
-                  onClick={handleSubmit}
-                >
-                  
-                </input>
-              </div>
-            </div>
+                />
 
-            {/* ON SUCCESSFUL SUBMIT  */}
-            {/* TODO: Replace with Toast? */}
-            {submitted && (
-              <div>
-                <p>You submitted successfully!</p>
-                {editing
+                {/* ON SUCCESSFUL SUBMIT  */}
+                {/* TODO: Replace with Toast? */}
+                {submitted && (
+                  <div>
+                    <p>You submitted successfully!</p>
+                    {/* {editing
                   ? props.history.push(
                       "/campaigns/" + props.location.state.currentCampaign._id
                     )
-                  : props.history.push("/")}
+                  : props.history.push("/")} */}
+                  </div>
+                )}
               </div>
-            )}
-          
-        </form></div>
+            </div>
+          </form>
+        </div>
       ) : (
         // TO DO: Enfore Login, notify customer
         //   Reroutes to Login page if not logged in

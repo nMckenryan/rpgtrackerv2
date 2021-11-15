@@ -37,7 +37,8 @@ const CompileSession = (props) => {
   };
 
   // SAVE SESSION
-  const saveSession = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     var data = {
       session_log: values.session_log,
       session_date: calendate,
@@ -76,7 +77,7 @@ const CompileSession = (props) => {
     <div className="card bg-dark text-white p-4">
       {/* Check if Logged in. No edit/creation available if not */}
       {user ? (
-        <div className="submit-form">
+        <form className="submit-form" onSubmit={handleSubmit}>
           <div className="container">
             {/* // COMPILE SESSION */}
             <div className="form-group text-white bg-dark card">
@@ -144,7 +145,6 @@ const CompileSession = (props) => {
 
               <div className="d-flex flex-row justify-content-center gap-5">
                 <div className="col">
-                  {/* TODO: GET TEXTAREA WORKING */}
                   <label id="basic-addon3">Session Log:</label>
 
                   <textarea
@@ -161,9 +161,7 @@ const CompileSession = (props) => {
               </div>
 
               <div className="col mt-3 mx-auto">
-                <button onClick={saveSession} className="btn btn-success">
-                  Submit
-                </button>
+                <input type="submit" value="Create" className="btn btn-success"/>
               </div>
             </div>
 
@@ -180,7 +178,7 @@ const CompileSession = (props) => {
               </div>
             )}
           </div>
-        </div>
+        </form>
       ) : (
         // TO DO: Enfore Login, notify customer
         //   Reroutes to Login page if not logged in
