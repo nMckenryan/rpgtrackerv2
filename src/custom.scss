@@ -16,11 +16,22 @@ $dark: #212121;
 
 .react-datepicker-wrapper,
 .react-datepicker__input-container,
+.DatePicker,
 .react-datepicker__input-container input {
   display: block;
   width: 100%;
-  background: $light;
+  background-color: $light;
+  border: 0 !important;
 }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'MedievalSharp', cursive;
+}
+
+p, button {
+  font-family:'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
+}
+
 
 $theme-colors: (
   "primary": $primary,
@@ -28,6 +39,7 @@ $theme-colors: (
   "success": $success,
   "info": $info,
   "warning": $warning,
+  "light": $light,
   "danger": $danger,
   "dark": $dark
 );

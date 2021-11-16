@@ -18,6 +18,7 @@ Made using:
 - Bootstrap 5 with Sass (Styling)
 - React Helmet (SEO & Head Management)
 - Yarn (Package Management)
+- React-Date-Picker (This one: https://github.com/wojtekmaj/react-date-picker)
 
 
 W.I.P.

@@ -32,7 +32,7 @@ const App = () => {
       {/* NAV BAR */}
       <nav className="navbar navbar-dark bg-dark  mr-auto text-white container-fluid">
         <a className="navbar-brand d-flex" href="/campaigns">
-          <h1><VikingLogo width="40" height="40" fill="#121212"/>
+          <h1 class="d-flex my-auto" ><VikingLogo width="40" height="40" fill="#121212"/>
           {headers.title}</h1>
         </a>
 

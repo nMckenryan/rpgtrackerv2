@@ -80,33 +80,9 @@ const CampaignList = (props) => {
 
   return (
     <>
-      {/* SEARCH BAR */}
-      {/* TODO: Get Search bar Functional */}
-      {/* <div className="row pb-1"> 
-        
-
-        <div className="input-group col-lg-4">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by name"
-            value={searchName}
-            onChange={onChangeSearchName}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByName}
-            >
-              Search
-            </button>
-          </div>
-        </div> */}
-
       {/* SORT BAR */}
       {/* TODO: Repair Sort by System */}
-      <div className="input-group col-lg-4">
+      {/* <div className="input-group col-lg-4">
           <select onChange={onChangeSearchSystem}>
             {systems.map((sys) => {
               return <option value={sys}> {sys.substr(0, 20)} </option>;
@@ -121,7 +97,7 @@ const CampaignList = (props) => {
               Sort
             </button>
           </div>
-        </div> 
+        </div>  */}
 
       {/* RESULTS GRID */}
       <div className="row justify-content-center text-white">

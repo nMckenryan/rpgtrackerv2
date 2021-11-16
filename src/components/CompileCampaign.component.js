@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
-import DatePicker from "react-date-picker/dist/entry.nostyle";
+import DatePicker from 'react-date-picker';
 import { useAuth0 } from "@auth0/auth0-react";
 
-// Add or Edit a Session
+// Component View for Adding or Editing  a Campaign
 
 const CompileCampaign = (props) => {
   let initialValues = {
@@ -84,7 +84,7 @@ const CompileCampaign = (props) => {
         <div className="container">
           <form className="needs-validation" onSubmit={handleSubmit}>
             {/* // COMPILE CAMPAIGN */}
-            <div className="form-group text-white bg-dark card">
+            <div className="form-group text-white bg-dark card border-0">
               <div className="row justify-content-between">
                 {/* BACK BUTTON */}
                 <div className="col">
@@ -117,7 +117,6 @@ const CompileCampaign = (props) => {
                         id="flexCheckDefault"
                         onChange={handleInputChange}
                         name="active"
-                        required
                       />
                     </div>
                   )}
@@ -163,20 +162,6 @@ const CompileCampaign = (props) => {
               </div>
 
               <div className="d-flex flex-row justify-content-center gap-5">
-                {/* DATE STARTED ENTRY */}
-                <div className="col-4">
-                  <label id="basic-addon3">Date Started:</label> <br />
-                  <DatePicker
-                    className="w-50"
-                    locale="en-AU"
-                    onChange={setStartDate}
-                    value={startDate}
-                    styles="background-color: white"
-                    required
-                  />
-                </div>
-                {/* TODO: Get required fields working */}
-
                 {/* GM ENTRY */}
                 <div className="col-4">
                   <label id="basic-addon3">Game Master:</label>
@@ -189,6 +174,19 @@ const CompileCampaign = (props) => {
                     value={values.game_master}
                     onChange={handleInputChange}
                     name="game_master"
+                  />
+                </div>
+
+                {/* DATE STARTED ENTRY */}
+                <div className="col-4">
+                  <label id="basic-addon3">Date Started:</label> <br />
+                  <DatePicker
+                    className="form-control bg-light w-100"
+                    locale="en-AU"
+                    onChange={setStartDate}
+                    value={startDate}
+
+                    required
                   />
                 </div>
               </div>

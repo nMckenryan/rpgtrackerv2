@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
-import DatePicker from "react-date-picker";
-
+import DatePicker from 'react-date-picker';
 import { useAuth0 } from "@auth0/auth0-react";
 
-// Add or Edit a Session
+// Component View for Adding or Editing  a Session
 const CompileSession = (props) => {
   let initialValues = {
     session_log: "",
@@ -80,7 +79,7 @@ const CompileSession = (props) => {
         <form className="submit-form" onSubmit={handleSubmit}>
           <div className="container">
             {/* // COMPILE SESSION */}
-            <div className="form-group text-white bg-dark card">
+            <div className="form-group text-white bg-dark card border-0">
               <div className="row justify-content-between">
                 {/* BACK BUTTON */}
                 <div className="col">
@@ -130,11 +129,11 @@ const CompileSession = (props) => {
                   />
                 </div>
 
-                {/* TODO: GET STYLING WORKING - GET WORKIGN WITH GRID.  */}
                 {/* DATE ENTRY */}
                 <div className="col">
                   <label id="basic-addon3">Date:</label> <br />
                   <DatePicker
+                    className="form-control border-0"
                     locale="en"
                     onChange={setCalendate}
                     value={calendate}
