@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import ConfirmationModal from "./ConfirmationModal.component";
+import DeleteModal from "./DeleteModal.component";
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 // import ConfirmationModal from "./ConfirmationModal.component";
 
 // VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions
@@ -57,18 +58,17 @@ const Campaign = (props) => {
       .then((response) => {
         console.log("DELETED CAMPAIGN: " + campId);
         props.history.push("/");
-      //   setCampaign((prevState) => {
-      //     prevState.campaign.splice(i, 1);
-      //     return {
-      //       ...prevState,
-      //     };
-      //   });
+        //   setCampaign((prevState) => {
+        //     prevState.campaign.splice(i, 1);
+        //     return {
+        //       ...prevState,
+        //     };
+        //   });
       })
       .catch((e) => {
         console.log(e);
       });
   };
-
 
   // Trims Session log to excerpt if over 150 chars.
   const trimSession = (sLog) => {
@@ -117,13 +117,11 @@ const Campaign = (props) => {
 
         {/* DELETE CAMPAIGN BUTTON */}
         <div className="col-1 text-center">
-          <button
-            onClick={() => deleteCampaign(campaign._id)}
-            className="btn btn-danger"
-            title="Delete your Campaign?"
-          >
-            <i className="bi bi-trash"></i>
-          </button>
+          <DeleteModal
+            identifier={campaign.campaign_name}
+            isCampaign={true}
+            delete_function={() => deleteCampaign(campaign._id)}
+          />
         </div>
       </div>
 
@@ -179,7 +177,6 @@ const Campaign = (props) => {
           </div>
 
           {/* SESSION TABLE DISPLAY */}
-
           <div className="row">
             {/* ADD NEW SESSION BUTTON */}
             {isAuthenticated && user.name === campaign.user_id && (
@@ -203,7 +200,7 @@ const Campaign = (props) => {
                   <div className="col-lg-4 pb-1" key={index}>
                     <div className="card bg-secondary ">
                       <h5 className="card-header text-center">
-                        {session.char_name}-{session.char_level}
+                        {session.char_name} - {session.char_level}
                       </h5>
                       <div className="card-body">
                         <p className="card-text">
@@ -239,13 +236,22 @@ const Campaign = (props) => {
                             </Link>
 
                             {/* DELETE SESSION BUTTON */}
-                            <button
-                              className="btn btn-danger btn-sm col"
-                              onClick={() => deleteSession(session._id, index)}
-                            >
-                              <i className="bi bi-trash"></i>
-                              Delete Session
-                            </button>
+
+                            <DeleteModal
+                              identifier={
+                                new Date(
+                                  session.session_date
+                                ).toLocaleDateString("en-AU") +
+                                " " +
+                                session.char_name +
+                                " " +
+                                session.char_level
+                              }
+                              isCampaign={false}
+                              delete_function={() =>
+                                deleteSession(session._id, index)
+                              }
+                            />
                           </div>
                         )}
                       </div>

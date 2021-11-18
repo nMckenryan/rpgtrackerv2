@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
 import DatePicker from 'react-date-picker';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Component View for Adding or Editing  a Campaign

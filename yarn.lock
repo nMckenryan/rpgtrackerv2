@@ -9757,6 +9757,11 @@ react-calendar@^3.3.1:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
 
+react-confirm-alert@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-confirm-alert/-/react-confirm-alert-2.7.0.tgz#7cdbf2e052e03554ac6a7d8956c9c227010c8a53"
+  integrity sha512-21NWtGK/e85+ZX3TLRpMc3IsU5Kj6Z9ElCOrkTIlwMzV9EancyXNlkqHGbtKP63a2iS6g5hOxROokmJOqKQiXA==
+
 react-date-picker@^8.3.4:
   version "8.3.5"
   resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-8.3.5.tgz#3972db3fc1f37cfd6b09c09bf4988817b4d2be72"
