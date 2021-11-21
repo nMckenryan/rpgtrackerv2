@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CampaignDataService from "../services/campaign.service";
 import { Link } from "react-router-dom";
-import DatePicker from 'react-date-picker';
+import DatePicker from "react-date-picker";
 import { useAuth0 } from "@auth0/auth0-react";
 
 // Component View for Adding or Editing  a Session
@@ -98,7 +98,7 @@ const CompileSession = (props) => {
               </div>
 
               {/* CHAR NAME ENTRY */}
-              <div className="d-flex flex-row justify-content-center gap-5">
+              <div className="d-flex flex-row justify-content-center gap-3">
                 <div className="col-4 pl-auto">
                   <label id="basic-addon3">Character Name:</label>
                   <input
@@ -142,11 +142,13 @@ const CompileSession = (props) => {
                 </div>
               </div>
 
+              {/* SESSION LOG */}
               <div className="d-flex flex-row justify-content-center gap-5">
                 <div className="col">
                   <label id="basic-addon3">Session Log:</label>
 
                   <textarea
+                   rows="15"
                     type="text"
                     className="form-control"
                     aria-label="With textarea"

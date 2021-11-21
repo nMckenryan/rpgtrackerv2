@@ -207,7 +207,7 @@ const CompileCampaign = (props) => {
                       ? setTimeout(() => {
                           props.history.push(
                             "/campaigns/" +
-                              props.location.state.currentSession._id
+                              props.location.state.currentCampaign._id
                           );
                         }, 1000)
                       : setTimeout(() => {

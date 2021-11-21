@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteModal from "./DeleteModal.component";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-// import ConfirmationModal from "./ConfirmationModal.component";
 
 // VIEW OF INDIVIDUAL CAMPAIGN. Shows Campaign details and a grid of sessions
 
@@ -79,14 +78,6 @@ const Campaign = (props) => {
     }
   };
 
-  // const deleteConfirmation = () => {
-  //   try {
-  //     <ConfirmationModal title="WARNING"></ConfirmationModal>;
-  //   } catch (e) {
-  //     console.error("Could not launch Campaign Delete Confirmation Modal" + e);
-  //   }
-  // };
-
   // CLIENT VIEW
   return (
     <div className="card bg-dark p-3">
@@ -109,6 +100,7 @@ const Campaign = (props) => {
                 },
               }}
               className="btn btn-info col"
+              title="Edit Campaign"
             >
               <i className="bi bi-pencil-square"></i>
             </Link>
@@ -251,7 +243,7 @@ const Campaign = (props) => {
                               delete_function={() =>
                                 deleteSession(session._id, index)
                               }
-                            />
+                            >Delete Session</DeleteModal>
                           </div>
                         )}
                       </div>
