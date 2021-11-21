@@ -19,22 +19,24 @@ Made using:
 - React Helmet (SEO & Head Management)
 - Yarn (Package Management)
 - React-Date-Picker (This one: https://github.com/wojtekmaj/react-date-picker)
+- React-Confirm-Alert
 
 
-W.I.P.
 
 ### SCREENSHOTS: 
 
 #### HOMESCREEN:
 ![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/HomepageScreen.PNG?raw=true)
 
-#### CREATE CAMPAIGN:
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/createCampaignScreen.PNG)
+#### CAMPAIGN VIEW
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/campaignViewScreen.PNG?raw=true)
 
-#### CREATE SESSION:
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/createSessionScreeen.PNG?raw=true)
+#### CAMPAIGN VIEW
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/sessionScreen.PNG?raw=true)
+
+
 
 
 ### LIGHTHOUSE/CHECKBOT TESTS
 
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/createSessionScreeen.PNG?raw=true)
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/.PNG?raw=true)
