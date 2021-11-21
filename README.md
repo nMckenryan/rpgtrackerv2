@@ -22,21 +22,20 @@ Made using:
 - React-Confirm-Alert
 
 
-
 ### SCREENSHOTS: 
 
 #### HOMESCREEN:
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/HomepageScreen.PNG?raw=true)
+![alt text](https://github.com/nMckenryan/rpgtrackerv2/blob/master/public/HomepageScreen.PNG?raw=true)
 
 #### CAMPAIGN VIEW
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/campaignViewScreen.PNG?raw=true)
+![alt text](https://github.com/nMckenryan/rpgtrackerv2/blob/master/public/campaignViewScreen.PNG?raw=true)
 
 #### CAMPAIGN VIEW
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/sessionScreen.PNG?raw=true)
+![alt text](https://github.com/nMckenryan/rpgtrackerv2/blob/master/public/sessionScreen.PNG?raw=true)
 
 
 
 
-### LIGHTHOUSE/CHECKBOT TESTS
+<!-- ### LIGHTHOUSE/CHECKBOT TESTS
 
-![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/.PNG?raw=true)
+![alt text](https://github.com/nMckenryan/DungeonTracker/blob/master/public/.PNG?raw=true) -->
